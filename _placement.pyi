@@ -429,7 +429,7 @@ class FGLSearchStrategyRouting():
         (Returns: True if the Object ID was successfully added, False otherwise)
         """
 
-    def add_offset_restriction(self, arg0):
+    def add_offset_restriction(self, subtype):
         """
         Adds the Offset Restriction to the Search Strategy.
         (Args: Offset Restriction (subtype)
@@ -450,14 +450,14 @@ class FGLSearchStrategyRouting():
         (Returns: True if the Polygon Constraint was successfully added, False otherwise)
         """
 
-    def add_restriction(self, arg0):
+    def add_restriction(self, subtype):
         """
         Adds the Restriction to the Search Strategy.
         (Args: Restriction (subtype)
         (Returns: True if the Restriction was successfully added, False otherwise)
         """
 
-    def add_scoring_function(self, arg0):
+    def add_scoring_function(self, subtype):
         """
         Adds the Scoring Function to the Search Strategy.
         (Args: ScoringFunction (subtype)
@@ -1075,14 +1075,14 @@ class FGLSearchStrategyRouting():
         (Returns: None)
         """
 
-    def remove_offset_restriction(self, arg0):
+    def remove_offset_restriction(self, subtype):
         """
         Removes the Offset Restriction to the Search Strategy.
         (Args: Offset Restriction (subtype)
         (Returns: True if the Offset Restriction was successfully removed, False otherwise)
         """
 
-    def remove_polygon(self, arg0):
+    def remove_polygon(self, subtype):
         """
         Removes the Polygon (and associated SurfaceIdentifier) to the Search Strategy.
         (Args: Polygon (subtype)
@@ -1096,14 +1096,14 @@ class FGLSearchStrategyRouting():
         (Returns: True if the Polygon Constraint was successfully removed, False otherwise)
         """
 
-    def remove_restriction(self, arg0):
+    def remove_restriction(self, subtype):
         """
         Removes the Restriction to the Search Strategy.
         (Args: Restriction (subtype)
         (Returns: True if the Restriction was successfully removed, False otherwise)
         """
 
-    def remove_scoring_function(self, arg0):
+    def remove_scoring_function(self, subtype):
         """
         Removes the Scoring Function to the Search Strategy.
         (Args: ScoringFunction (subtype)
@@ -1473,14 +1473,14 @@ class FGLSearchStrategyRoutingGoals():
         (Returns: True if the Polygon (and surface) was successfully added, False otherwise)
         """
 
-    def add_restriction(self, arg0):
+    def add_restriction(self, subtype):
         """
         Adds the Restriction to the Search Strategy.
         (Args: Restriction (subtype)
         (Returns: True if the Restriction was successfully added, False otherwise)
         """
 
-    def add_scoring_function(self, arg0):
+    def add_scoring_function(self, subtype):
         """
         Adds the Scoring Function to the Search Strategy.
         (Args: ScoringFunction (subtype)
@@ -1754,21 +1754,21 @@ class FGLSearchStrategyRoutingGoals():
         (uint32_t) Random Seed used for this Search Strategy.
         """
 
-    def remove_polygon(self, arg0):
+    def remove_polygon(self, subtype):
         """
         Removes the Polygon (and associated SurfaceIdentifier) to the Search Strategy.
         (Args: Polygon (subtype)
         (Returns: True if the Polygon was successfully removed, False otherwise)
         """
 
-    def remove_restriction(self, arg0):
+    def remove_restriction(self, subtype):
         """
         Removes the Restriction to the Search Strategy.
         (Args: Restriction (subtype)
         (Returns: True if the Restriction was successfully removed, False otherwise)
         """
 
-    def remove_scoring_function(self, arg0):
+    def remove_scoring_function(self, subtype):
         """
         Removes the Scoring Function to the Search Strategy.
         (Args: ScoringFunction (subtype)
@@ -1989,7 +1989,7 @@ class ObjectQuadTree():
     def __init__(self, arg0):
         pass
 
-    def insert(self, kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None, kwarg3: Any = None, kwarg4: Any = None, kwarg5: Any = None, kwarg6: Any = None, kwarg7: Any = None):
+    def insert(self, object, objectID, objecItemType, bounds, level, bIgnoreLevel):
         """
         qt.insert(object, objectID, objecItemType, bounds, level, bIgnoreLevel)
         Inserts 'object' (of objectItemType with ID objectID) into the ObjectQuadTree

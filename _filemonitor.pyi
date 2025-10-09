@@ -55,11 +55,11 @@ class DirectoryMonitor():
 
     def poll(self) -> "list":
         """
-        -> list
+        poll() -> list
         
         Poll the watched directory for a list of file changes.  If no changes
         have been detected, None is returned.  Otherwise, the result will be a
-        list of (filename, action tuples.
+        list of (filename, action) tuples.
         """
 
 

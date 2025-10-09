@@ -27,15 +27,21 @@ class Key():
     @staticmethod
     def hash32(s: str, type: int, group: int) -> "Key":
         """
+        hash32(s, type, group)
+        
         Return a new Key instance whose instance is set to the 32-bit hash
         value of the given string.
+        Annotations Contributors: TURBODRIVER
         """
 
     @staticmethod
     def hash64(s: str, type: int, group: int) -> "Key":
         """
+        hash64(s, type, group)
+        
         Return a new Key instance whose instance is set to the 64-bit hash
         value of the given string.
+        Annotations Contributors: TURBODRIVER
         """
 
     @property
@@ -99,15 +105,15 @@ class Resource():
 
 def databases() -> "tuple":
     """
-    -> tuple
+    databases() -> tuple
     
-    Get the list of registered databases (path strings.
+    Get the list of registered databases (path strings).
     """
 
 
 def does_key_exist(key) -> "bool":
     """
-    -> bool
+    resourceman_does_key_exist(key) -> bool
     
     Return true if key exist in resource manager.
     """
@@ -115,7 +121,7 @@ def does_key_exist(key) -> "bool":
 
 def get_name_from_key(key) -> "string":
     """
-    -> string
+    get_name_from_key(key) -> string
     
     Get the name of a resource for the given key.
     """
@@ -123,7 +129,7 @@ def get_name_from_key(key) -> "string":
 
 def get_normalized_key(key) -> "key":
     """
-    -> key
+    get_normalized_key(key) -> key
     
     Return a Resource Key that accounts for modded content, i.e.
     a key that has its group's high bit set if its instance's high bit
@@ -131,17 +137,17 @@ def get_normalized_key(key) -> "key":
     """
 
 
-def list(group=None, type=None) -> "list of resources":
+def list(group=None, type=None) -> "List[resources]":
     """
-    -> list of resources
+    list(group=None, type=None) -> list of resources
     
     Retrieve a list of available resources, using key as a filter.
     """
 
 
-def list_local(key=None, include_packed=True, packed_types=None) -> "list of resources":
+def list_local(key=None, include_packed=True, packed_types=None) -> "List[resources]":
     """
-    -> list of resources
+    list_local(key=None, include_packed=True, packed_types=None) -> list of resources
     
     Retrieve a tuple of two lists of ResourceKey objects. The first contains keys
     of each file in LocalWork, if key available, otherwise keys modified after the
@@ -149,13 +155,13 @@ def list_local(key=None, include_packed=True, packed_types=None) -> "list of res
     
     If include_packed is True, also include resources from packed package files. The
     optional packed_types list restricts the returned key list to the specified set
-    of resource types (API v2+.
+    of resource types (API v2+).
     """
 
 
 def load(key) -> "resource":
     """
-    -> resource
+    load(key) -> resource
     
     Load a resource based on its key.
     """
@@ -163,6 +169,8 @@ def load(key) -> "resource":
 
 def make_resource_hot_swappable(typeId):
     """
+    make_resource_hot_swappable(typeId) -> None
+    
     Make resources with the given type id hot-swappable.
     """
 
@@ -175,13 +183,15 @@ def purge_cache():
 
 def python_telemetry_event(eventIndex):
     """
+    python_telemetry_event(eventIndex) -> None
+    
     Used to profile how long Python operations took and sends them to telemetry.
     """
 
 
 def register_change_notification(callback, group=None, type=None) -> "handle":
     """
-    -> handle
+    register_change_notification(callback, group=None, type=None) -> handle
     
     Register/Unregister for the resource system to call the provided callback when resources matching the provided filters change.
     """
@@ -189,20 +199,20 @@ def register_change_notification(callback, group=None, type=None) -> "handle":
 
 def register_pack_hotload_callback(bool, callback) -> "handle":
     """
-    -> handle
+    resourceman_register_pack_hotload_callback(bool, callback) -> handle
     
     Register/Unregister for the resource system to call the provided callback when is ready to be hot loaded or unloaded.
-    The callback should accept a bool for load (true, false for unload, and a list of tuples which are a (type, list of keys.
+    The callback should accept a bool for load (true), false for unload, and a list of tuples which are a (type, list of keys).
     """
 
 
 def register_pack_hotload_request_callback(bool, callback) -> "handle":
     """
-    -> handle
+    resourceman_register_pack_hotload_request_callback(bool, callback) -> handle
     
     Register/Unregister for the resource system to call the provided callback when a pack is requested to be hot loaded.
     The first parameter is true to register, false to unregister.
-    The callback should accept a bool for load (true, false for unload, a pack id, and a list of types.
+    The callback should accept a bool for load (true), false for unload, a pack id, and a list of types.
     """
 
 
@@ -214,5 +224,6 @@ def release_preload_buffers():
 
 def unregister_change_notification(callback):
     """
+    unregister_change_notification(callback)
     Unregiser for a resource system callback when the filtered files change.
     """

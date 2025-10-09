@@ -7,12 +7,16 @@ from typing import *
 
 def change_gc_policy(arg0):
     """
+    change_gc_policy_doc() -> None
+    
     Set the python garbage collection policy.
     """
 
 
 def set_function_closure(function, closure, remaps):
     """
+    set_function_closure(function, closure, remaps)
+    
     Set the __closure__ of function to value.
     
     function: the function object whose closure should be changed.
@@ -26,9 +30,9 @@ def set_function_closure(function, closure, remaps):
 
 def try_highwater_gc() -> "bool":
     """
-    -> bool
+    try_highwater_gc() -> bool
     
-    If we've reached the highwater low trigger, this will run a level 2 GC.Return True if we did run GC. Return False if we did not.This should only be called at an opportune moment (i.e. during a modal dialog,while already at a loading screen, etc.
+    If we've reached the highwater low trigger, this will run a level 2 GC.Return True if we did run GC. Return False if we did not.This should only be called at an opportune moment (i.e. during a modal dialog,while already at a loading screen, etc.)
     """
 
 

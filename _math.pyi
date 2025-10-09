@@ -148,21 +148,21 @@ class Quaternion():
 
     def from_axis_angle(self, angle, vector) -> "Quaternion":
         """
-        -> Quaternion
+        from_axis_angle(angle, vector) -> Quaternion
         
         Construct a quaternion from a give angle and axis of rotation.
         """
 
     def from_forward_vector(self, vector) -> "Quaternion":
         """
-        -> Quaternion
+        from_forward_vector(vector) -> Quaternion
         
         Construct a quaternion from a forward vector
         """
 
     def transform_vector(self, v) -> "Vector3":
         """
-        -> Vector3
+        transform_vector(v) -> Vector3
         
         Transform a Vector3 by this Quaternion.
         """
@@ -224,21 +224,21 @@ class QuaternionImmutable():
 
     def from_axis_angle(self, angle, vector) -> "Quaternion":
         """
-        -> Quaternion
+        from_axis_angle(angle, vector) -> Quaternion
         
         Construct a quaternion from a give angle and axis of rotation.
         """
 
     def from_forward_vector(self, vector) -> "Quaternion":
         """
-        -> Quaternion
+        from_forward_vector(vector) -> Quaternion
         
         Construct a quaternion from a forward vector
         """
 
     def transform_vector(self, v) -> "Vector3":
         """
-        -> Vector3
+        transform_vector(v) -> Vector3
         
         Transform a Vector3 by this Quaternion.
         """
@@ -303,14 +303,14 @@ class Transform():
 
     def transform_point(self, v) -> "Vector3":
         """
-        -> Vector3
+        transform_point(v) -> Vector3
         
         Transforms a Vector3 by this Transform's elements.
         """
 
     def transform_vector(self, v) -> "Vector3":
         """
-        -> Vector3
+        transform_vector(v) -> Vector3
         
         Transform a Vector3 by this Transform's Quaternion element.
         """
@@ -785,7 +785,7 @@ def minimum_distance(arg0, arg1):
     """
 
 
-def mod_2pi(arg0):
+def mod_2pi(value):
     """
     Given a float value, will return fmod(value, 2*PI)
     """

@@ -9,11 +9,14 @@ class _LineOfSight():
     """
 
     def __init__(self, arg0, arg1, arg2, arg3, arg4):
-        _connection_index: Any  # Index of raycast segment connections
-        _interval: Any
-        _map_divisions: Any  # Number of segments in _distance_map and _connections_map
-        _simplification_ratio: Any
-        build_convex: Any  # Boolean that indicates whether this constaint is to contain convex polygons only
+        pass
+
+    #  __init__
+    _connection_index: Any  # Index of raycast segment connections
+    _interval: Any
+    _map_divisions: Any  # Number of segments in _distance_map and _connections_map
+    _simplification_ratio: Any
+    build_convex: Any  # Boolean that indicates whether this constaint is to contain convex polygons only
 
     def _build_convex_segments(self, arg0, arg1):
         """

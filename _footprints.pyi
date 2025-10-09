@@ -88,4 +88,6 @@ class PolygonFootprint():
         """
 
     def set_global_enabled(self, enabled: bool):
-        pass
+        """
+        set_global_enabled(enabled:bool)
+        """

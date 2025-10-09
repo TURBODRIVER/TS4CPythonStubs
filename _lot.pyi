@@ -284,7 +284,7 @@ class Lot():
         """
 
 
-def get_lot_id_from_instance_id():
+def get_lot_id_from_instance_id(uint64guid):
     """
     Convert a GUID to an Active Lot ID. Parameters:(uint64 guid)
     """

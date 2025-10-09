@@ -26,7 +26,7 @@ def hash64(arg0):
     """
 
 
-def unhash64(kwarg0: Any = None, kwarg1: Any = None):
+def unhash64(kwarg0: Any = None, kwarg1: Any = None) -> "str":
     """
     instance:int64[, table_type:int32] -> str
     Get unhashed name for a given FNV64 hash.

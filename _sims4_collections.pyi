@@ -64,7 +64,7 @@ class frozendict():
         Override of dict function to prevent its usage in frozendict, will throw an attribute error if used
         """
 
-    def copy(self):
+    def copy(self) -> "a shallow copy of D":
         """
         D.copy() -> a shallow copy of D
         """
@@ -79,12 +79,12 @@ class frozendict():
         Return the value for key if key is in the dictionary, else default.
         """
 
-    def items(self):
+    def items(self) -> "a set-like object providing a view on D's items":
         """
         D.items() -> a set-like object providing a view on D's items
         """
 
-    def keys(self):
+    def keys(self) -> "a set-like object providing a view on D's keys":
         """
         D.keys() -> a set-like object providing a view on D's keys
         """
@@ -109,7 +109,7 @@ class frozendict():
         Override of dict function to prevent its usage in frozendict, will throw an attribute error if used
         """
 
-    def values(self):
+    def values(self) -> "an object providing a view on D's values":
         """
         D.values() -> an object providing a view on D's values
         """

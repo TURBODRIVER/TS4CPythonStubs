@@ -308,13 +308,13 @@ class CompoundPolygon():
         Return true if we have at least one polygon and all polygons have at least one vertex.
         """
 
-    def intersect(self, arg0):
+    def intersect(self, CompoundPolyB) -> "CompoundPolygon":
         """
         CompoundPolyA.intersect(CompoundPolyB) -> CompoundPolygon
         Return a CompoundPolygon that's the intersection of CompoundPolyA and CompoundPolyB.
         """
 
-    def intersects(self, arg0):
+    def intersects(self, CompoundPolyB) -> "CompoundPolygon":
         """
         CompoundPolyA.intersects(CompoundPolyB) -> CompoundPolygon
         Return whether or not CompoundPolyA intersects CompoundPolyB.
@@ -326,7 +326,7 @@ class CompoundPolygon():
         Return the max radius of all of the polygons in the compound polygon.
         """
 
-    def union(self, arg0):
+    def union(self, CompoundPolyB) -> "CompoundPolygon":
         """
         CompoundPolyA.union(CompoundPolyB) -> CompoundPolygon
         Return a CompoundPolygon that's the union of CompoundPolyA and CompoundPolyB.
@@ -371,13 +371,13 @@ class Polygon():
         Adds the point p at end of the polygon.  Note that this is more efficient than calling insert as the polygon is internally stored as an array.
         """
 
-    def area(self):
+    def area(self) -> "float":
         """
         p.area() -> float
         The area of this polygon projected onto the (x,z) plane.
         """
 
-    def average_radius(self):
+    def average_radius(self) -> "float":
         """
         p.average_radius() -> float
         Returns the average of radius and min_radius.
@@ -401,7 +401,7 @@ class Polygon():
         True if polygon is counterclockwise.
         """
 
-    def centroid(self):
+    def centroid(self) -> "Vector3":
         """
         p.centroid() -> Vector3
         Returns the centroid of the polygon.
@@ -466,7 +466,7 @@ class Polygon():
         still inside the polygon, returns None.
         """
 
-    def get_convex_hull(self):
+    def get_convex_hull(self) -> "Polygon":
         """
         p.get_convex_hull() -> Polygon
         Returns a Polygon that is the Convex Hull of the current Polygon.
@@ -529,7 +529,7 @@ class Polygon():
         Returns None if the polygon is empty or otherwise invalid.
         """
 
-    def get_error_string(self):
+    def get_error_string(self) -> "string":
         """
         p.get_error_string() -> string
         If the polygon is not valid, this will return a string describing the errors.   If the polygon is valid, this returns an empty string.
@@ -542,7 +542,7 @@ class Polygon():
         Returns None if the Polygon is invalid.
         """
 
-    def get_octant_and_slope(self, kwarg0: Any = None):
+    def get_octant_and_slope(self, v: Vector3) -> "Tuple[octant:int, slope:float]":
         """
         Polygon.get_octant_and_slope(v:Vector3) -> (octant:int, slope:float)
         """
@@ -596,7 +596,7 @@ class Polygon():
         Returns the first index of the polygon that is equal to the specified point p.   If no match is found, returns None.
         """
 
-    def inflate(self, arg0):
+    def inflate(self, floatamt):
         """
         p.inflate(float amt) -> None
         Inflates (or deflates if amt is negative) the Polygon by the specified amount.  Currently only works on Convex Polygons.
@@ -610,7 +610,7 @@ class Polygon():
         Inserts the point p at index i.
         """
 
-    def intersect(self, kwarg0: Any = None):
+    def intersect(self, other) -> "Polygon":
         """
         p.intersect(other) -> Polygon
         A new polygon that is the intersect of p and other.   TODO: return a tuple of polygons instead of just 1 since intersection of concave polygon can give more than 1 result.
@@ -622,25 +622,25 @@ class Polygon():
         Returns true if the polygon intersects the specified geometry object.
         """
 
-    def min_radius(self):
+    def min_radius(self) -> "float":
         """
         p.min_radius() -> float
         Returns the distance from the centroid to the nearest point on any edge.
         """
 
-    def move_to(self, arg0):
+    def move_to(self, Vector3):
         """
         p.move_to(Vector3) -> None
         Translate the polygon such that the centroid is in the specified position.
         """
 
-    def normalize(self):
+    def normalize(self) -> "Polygon":
         """
         p.normalize() -> Polygon
         A new polygon with coordinate and colinear vertices removed.
         """
 
-    def perimeter(self):
+    def perimeter(self) -> "float":
         """
         p.perimeter() -> float
         Returns sum of the length of all sides of this polygon.
@@ -667,19 +667,19 @@ class Polygon():
         .
         """
 
-    def pop_back(self):
+    def pop_back(self) -> "Vector3":
         """
         p.pop_back() -> Vector3
         Removes the last vertex of the Polygon (and returns it).  Note that this is more efficient than calling remove as the polygon is internally stored as an array.
         """
 
-    def radius(self):
+    def radius(self) -> "float":
         """
         p.radius() -> float
         Returns the distance from the centroid to the farthest vertex from the centroid.
         """
 
-    def remove(self, kwarg0: Any = None, kwarg1: Any = None):
+    def remove(self, i, n=1):
         """
         p.remove(i, n = 1) -> None
         Removes n vertices (default = 1) starting at index i.
@@ -691,14 +691,14 @@ class Polygon():
         Rotates the polygon around the specified ctr point (or the centroid if no point is provided) by r radians.
         """
 
-    def sample(self):
+    def sample(self) -> "Vector3":
         """
         p.sample() -> Vector3
         Returns a random point guaranteed to be within the Polygon.
         If the Polygon is invalid, returns None.
         """
 
-    def scale(self, arg0):
+    def scale(self, floats):
         """
         p.scale(float s) -> None
         Scales Polygon by specified amount.  Note that this can cause problems for concave polygons and could make them complex.  Convex polygons should work if the scale doesn't go too low.
@@ -752,7 +752,7 @@ class Polygon():
         True if polygon contains any regions that are too thin (i.e. if the cross product of the normals of any 2 coincident vertices is less than 2 degrees (~0.0349 radians)
         """
 
-    def translate(self, arg0):
+    def translate(self, Vector3):
         """
         p.translate(Vector3) -> None
         Translate the polygon by the specified amount.
@@ -764,7 +764,7 @@ class Polygon():
         Returns a tuple of polygons formed by taking the union of the two polygons.
         """
 
-    def valid(self, kwarg0: Any = None):
+    def valid(self, kwarg0: Any = None) -> "bool":
         """
         p.too_small(ForceCheck = False)() -> bool
         Returns true if the polygon has 3 or more vertices, is not degenerate, is simple, and the area is not too small to form a valid polygon.
@@ -779,7 +779,7 @@ class QuadTree():
     def __init__(self, *args):
         pass
 
-    def insert(self, arg0, arg1):
+    def insert(self, object, bounds):
         """
         qt.insert(object, bounds)
         Inserts 'object' into the QuadTree with the specified bounds, or modifies the bounds for an existing object
@@ -791,7 +791,7 @@ class QuadTree():
         A list of objects which were found within 'bounds'
         """
 
-    def remove(self, arg0):
+    def remove(self, object):
         """
         qt.remove(object)
         Removes 'object' from the QuadTree
@@ -865,12 +865,12 @@ class RelativeFacingRange():
         Invert.
         """
 
-    def range(self, arg0):
+    def range(self, Vector3):
         """
         Gets the interval at the specified point.  ARGS: (Vector3)point
         """
 
-    def set_params(self, kwarg0: Any = None, kwarg1: Any = None):
+    def set_params(self, Vector3):
         """
         Sets Params for scoring function.  Points are scored by measuring distance from line formed by initial point and angle, then normalized to [0,1] where distance < ideal_distance is scored as 1, ideal_distance < distance < max_distance is scored as 1->0, and distance >= max_distance is scored as 0.  ARGS: (Vector3)point1, (Vector3)point2, (float)ideal_distance, (float)max_distance
         """
@@ -921,12 +921,12 @@ class RelativeFacingWithCircle():
         Target Point.
         """
 
-    def range(self, arg0):
+    def range(self, Vector3):
         """
         Gets the interval at the specified point.  ARGS: (Vector3)point
         """
 
-    def set_params(self, arg0, arg1, arg2):
+    def set_params(self, Vector3):
         """
         Sets Params for scoring function.  Points are scored by measuring distance from line formed by initial point and angle, then normalized to [0,1] where distance < ideal_distance is scored as 1, ideal_distance < distance < max_distance is scored as 1->0, and distance >= max_distance is scored as 0.  ARGS: (Vector3)point1, (Vector3)point2, (float)ideal_distance, (float)max_distance
         """
@@ -960,14 +960,14 @@ def find_intersection_points(arg0, arg1, arg2, arg3, arg4, arg5):
     """
 
 
-def generate_circle_constraint(arg0, arg1, arg2):
+def generate_circle_constraint(num_sides: int, center: Vector3, radius: float) -> "Polygon":
     """
     (num_sides: int, center: Vector3, radius: float) -> Polygon
     Generate a Circular Polygon used by the Python constraint system.
     """
 
 
-def generate_cone_constraint(arg0, arg1, arg2, arg3, arg4, arg5, arg6):
+def generate_cone_constraint(arg0, arg1, arg2, arg3, arg4, arg5, arg6) -> "Polygon":
     """
     (target_pos: Vector3, target_facing: Vector3, min_dist: float
     , max_dist: float, angle: float, offset: float) -> Polygon

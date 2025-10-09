@@ -11,67 +11,88 @@ class ArbBase():
     """
 
     def __init__(self, *args):
-        _native_handle: Any  # Native ARB handle owned by this instance
+        pass
 
-    def _actor_instances(self):
+    #  __init__
+    _native_handle: Any  # Native ARB handle owned by this instance
+
+    def _actor_instances(self) -> "Tuple[Tuple[int, int], ...]":
         """
-        Returns a tuple of (actor_id, suffix tuples listing actor instances affected by this arb
+        _actor_instances() - Returns a tuple of (actor_id, suffix) tuples listing actor instances affected by this arb
+        Annotations Contributors: TURBODRIVER
         """
 
-    def _actors(self) -> "list":
+    def _actors(self, main_timeline_only=False) -> "Tuple[int, ...]":
         """
-        Returns a tuple of actor ids affected by this arb
+        _actors() - Returns a tuple of actor ids affected by this arb
+        Annotations Contributors: TURBODRIVER
         """
 
     def _add_custom_event(self, actor_id, base_time, time_in_secs, event_id, allow_create_stub=False) -> "bool":
         """
+        _add_custom_event(actor_id, base_time, time_in_secs, event_id)
+        
         adds a procedural event with id event_id to the arb for the given actor
-        at the time in seconds from the base time (start or end of controller
+        at the time in seconds from the base time (start or end of controller)
+        Annotations Contributors: TURBODRIVER
         """
 
     def _append(self, arb, safe_mode=True, force_sync=False) -> "bool":
-        pass
+        """
+        _append(arb, safe_mode=True, force_sync)
+        Annotations Contributors: TURBODRIVER
+        """
 
     def _begin_synchronized_group(self):
         """
-        Begins a synchronized scheduling group
+        _begin_synchronized_group() - Begins a synchronized scheduling group
+        Annotations Contributors: TURBODRIVER
         """
 
     def _bytes(self):
         """
-        Returns the contents of the ARB as bytes
+        _bytes() - Returns the contents of the ARB as bytes
         """
 
-    def _can_append(self, kwarg0: Any = None, kwarg1: Any = None):
+    def _can_append(self, arbToAppend, safeMode=True):
         """
         _append(arbToAppend, safeMode=True)
         """
 
     def _end_synchronized_group(self):
         """
-        Ends a synchronized scheduling group
+        _end_synchronized_group() - Ends a synchronized scheduling group
+        Annotations Contributors: TURBODRIVER
         """
 
     def _ends_in_looping_content(self, actor_id, min_track_id) -> "bool":
         """
+        _ends_in_looping_content(actor_id, min_track_id)
+        
         Returns True if the last content for the specified actor/track pair
-        is looping (infinite duration; False otherwise
+        is looping (infinite duration); False otherwise
+        Annotations Contributors: TURBODRIVER
         """
 
     def _events(self) -> "list":
         """
-        Returns a tuple of events from this arb
+        _events() - Returns a tuple of events from this arb
+        Annotations Contributors: TURBODRIVER
         """
 
     def _get_boundary_conditions(self, actor_id):
         """
-        Returns the pre/post-conditions (for positioning for the the specified actor based on the
+        _get_boundary_conditions(actor_id)
+        
+        Returns the pre/post-conditions (for positioning) for the the specified actor based on the
         contents of the ARB.  The pre-condition is specified as an offset from the scene origin,which is assumed to be the transform of the 'target object'.  The post-condition is explicitlyreturned as an offset plus an object ID from which the offset is relative.
+        Annotations Contributors: TURBODRIVER
         """
 
     def _get_timing(self) -> "Tuple[float, float, float]":
         """
         get_timing() - Returns a tuple of (maximum_duration, minimum_duration) for the ARB contents
+        Annotations Contributors: TURBODRIVER
         """
 
     def _is_interruptible(self):
@@ -81,8 +102,10 @@ class ArbBase():
 
     def _normal_timeline_ends_in_looping_content(self, actor_id):
         """
+        _normal_timeline_ends_in_looping_content(actor_id)
+        
         Returns True if the last content for the specified actor on the normal timeline
-        is looping (infinite duration; False otherwise
+        is looping (infinite duration); False otherwise
         """
 
     def _should_analyze(self):
@@ -104,17 +127,19 @@ class ArbBase():
 
     def get_contents_as_string(self):
         """
-        Returns the contents of this arb as a formatted text string
+        get_contents_as_string() - Returns the contents of this arb as a formatted text string
         """
 
     def get_estimated_duration(self) -> "float":
         """
-        Returns the estimated duration (in seconds of the ARB contents
+        get_estimated_duration() - Returns the estimated duration (in seconds) of the ARB contents
+        Annotations Contributors: TURBODRIVER
         """
 
     def is_valid(self) -> "bool":
         """
-        Returns 'True' if all ARB contents are valid, 'False' otherwise.
+        is_valid() - Returns 'True' if all ARB contents are valid, 'False' otherwise.
+        Annotations Contributors: TURBODRIVER
         """
 
     @property
@@ -143,13 +168,16 @@ class ArbBase():
 
     def preload(self, *args):
         """
-        Issue preload requests for all essential content
+        preload() - Issue preload requests for all essential content
         """
 
     def schedule(self, actor_id, controller, priority=10000, blend_in=-1.0, blend_out=-1.0):
         """
+        schedule(actor_id, controller, [priority, blend_in, blend_out])
+        
         Schedules a controller on the given actor, created from the CSL-formatted
         string provided in 'controller'.
+        Annotations Contributors: TURBODRIVER
         """
 
 
@@ -159,101 +187,152 @@ class AsmBase():
     """
 
     def __init__(self, key):
-        _native_handle: Any  # Native ASM handle owned by this instance
+        """
+        Annotations Contributors: TURBODRIVER
+        """
+
+    #  __init__
+    _native_handle: Any  # Native ASM handle owned by this instance
 
     def _add_actor_instance_namespace_override(self, actor_name, actor_id, actor_suffix, namespace, target_id, target_suffix) -> "bool":
-        pass
+        """
+        _add_actor_instance_namespace_override(actor_name, actor_instance_id, namespace, target_instance_id)
+        Annotations Contributors: TURBODRIVER
+        """
 
     def _add_virtual_actor(self, actor_name, actor_id, suffix) -> "bool":
-        pass
+        """
+        _add_virtual_actor(actor_name, id)
+        Annotations Contributors: TURBODRIVER
+        """
 
     def _clear_actor(self, actor_name) -> "bool":
-        pass
+        """
+        _clear_actor(actor_name)
+        Annotations Contributors: TURBODRIVER
+        """
 
     def _clear_actor_trackmask_override(self, actor_name):
-        pass
+        """
+        _clear_actor_trackmask_override(actor_name)
+        """
 
     def _enter(self) -> "bool":
         """
-        Forces the current state to be 'entry'.  No animations are scheduled.
+        _enter() - Forces the current state to be 'entry'.  No animations are scheduled.
+        Annotations Contributors: TURBODRIVER
         """
 
     def _exit(self, arb, request_id=0) -> "int":
         """
-        Executes a tunneling request to the exit state.
+        _exit(arb) - Executes a tunneling request to the exit state.
+        Annotations Contributors: TURBODRIVER
         """
 
     def _get_actor_definition(self, actor_name):
         """
         _get_actor_definition - Returns a tuple containing the information in the actor description for a given actor name.
+        Annotations Contributors: TURBODRIVER
         """
 
-    def _get_param_sequences(self, actor_id: int, to_state_name: str, from_state_name: str, locked_args: dict = None):
+    def _get_param_sequences(self, actor_id: int, to_state_name: str, from_state_name: str, locked_args: dict = None) -> "List[Dict[str, str]]":
         """
-        pairs that represent 
+        _get_param_sequences(actor_id:int, to_state_name:str, from_state_name:str, locked_args:dict=None
+        
+        Returns a list of dictionaries of the form (parameter name, value) pairs that represent 
         all valid combinations of parameter values for the given state traversal.
+        Annotations Contributors: TURBODRIVER
         """
 
-    def _get_params(self, *args):
+    def _get_params(self) -> "List[Dict[str, str]]":
         """
-        Returns a list of dictionaries of the form (parameter name, value pairs that represent 
+        _get_params()
+        
+        Returns a list of dictionaries of the form (parameter name, value) pairs that represent 
         all current parameters on the ASM.
+        Annotations Contributors: TURBODRIVER
         """
 
     def _get_props_in_traversal(self, from_state, to_state) -> "bool":
         """
         AsmBase_get_props_in_traversal - Returns a dict of actor name/ResourceKeyObject for each prop actor in a give state traversal.
+        Annotations Contributors: TURBODRIVER
         """
 
     def _get_resource_key_for_actor(self, actor_name) -> "bool":
         """
         AsmBase_get_resource_key_for_actor - Returns the resource key attached to the actor definition with the given name
+        Annotations Contributors: TURBODRIVER
         """
 
     def _get_supported_postures_for_actor(self, actor_name) -> "bool":
         """
         _get_supported_postures_for_actor - Returns a tuple of tuples describing the supported postures, with each configuration specified as (actor_name, name, family, compatibility, carry_left, carry_right, carry_back, surface) for the actor name supplied, or the default if none supplied
+        Annotations Contributors: TURBODRIVER
         """
 
     def _remove_virtual_actor(self, actor_name, actor_id, suffix) -> "bool":
-        pass
+        """
+        _remove_virtual_actor(actor_name, id)
+        Annotations Contributors: TURBODRIVER
+        """
 
     def _request(self, to_state, arb, request_id=0, interrupt=False) -> "int":
         """
-        Requests a given state name
+        _request(state_name, arb) - Requests a given state name
+        Annotations Contributors: TURBODRIVER
         """
 
     def _schedule_exit_content(self, arb):
         """
-        Schedules the exit content for the last request (if there is any into the provided ARB
+        _schedule_exit_content(arb) - Schedules the exit content for the last request (if there is any) into the provided ARB
+        Annotations Contributors: TURBODRIVER
         """
 
     def _set_actor(self, actor_name, actor_id, suffix) -> "bool":
-        pass
+        """
+        _set_actor(actor_name, id)
+        Annotations Contributors: TURBODRIVER
+        """
 
     def _set_actor_parameter(self, actor_name, actor_id, parameter_name, value) -> "bool":
-        pass
+        """
+        _set_actor_parameter(parameter_name, actor_name, actor_instance_id, value)
+        Annotations Contributors: TURBODRIVER
+        """
 
     def _set_actor_trackmask_override(self, actor_name, track, trackmask_name):
-        pass
+        """
+        _set_actor_trackmask_override(actor_name, track, trackmask_name)
+        """
 
     def _set_current_state(self, state_name) -> "bool":
         """
-        Forces the current state to be the specified state.  No animations are scheduled.
+        _set_current_state(name) - Forces the current state to be the specified state.  No animations are scheduled.
+        Annotations Contributors: TURBODRIVER
         """
 
     def _set_parameter(self, parameter_name, value) -> "bool":
-        pass
+        """
+        _set_parameter(parameter_name, value)
+        Annotations Contributors: TURBODRIVER
+        """
 
     def _set_reaction_actor(self, actor):
-        pass
+        """
+        _set_reaction_actor(actor)
+        """
 
     def _set_single_actor_parameter_if_possible(self, actor_name, parameter_name, value) -> "bool":
-        pass
+        """
+        _set_single_actor_parameter_if_possible(actor_name, parameter_name, value)
+        Annotations Contributors: TURBODRIVER
+        """
 
     def _traverse(self, from_state, to_state, arb, request_id=0, from_boundary_conditions=False) -> "bool":
         """
-        Traverses the graph between two states and adds commands to the provided Arb
+        _traverse(from, to, arb) - Traverses the graph between two states and adds commands to the provided Arb
+        Annotations Contributors: TURBODRIVER
         """
 
     @property
@@ -402,7 +481,7 @@ def enable_native_reaction_event_handling(arg0):
     """
 
 
-def get_initial_offset_for_clip(arg0):
+def get_initial_offset_for_clip(x, y, z, w):
     """
     Returns the initial offset for a given clip as ((x, y, z), (x, y, z, w))
     """
@@ -420,7 +499,7 @@ def get_joint_name_for_index_from_rig(arg0, arg1):
     """
 
 
-def get_joint_transform_from_rig(arg0, arg1):
+def get_joint_transform_from_rig(pos, quat):
     """
     Returns the bind-pose transform for a given bone in a specified rig as tuple(pos, quat).
     """
