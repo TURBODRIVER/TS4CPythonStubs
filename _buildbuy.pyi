@@ -392,6 +392,12 @@ def get_wall_contours(arg0, arg1, arg2, arg3):
     """
 
 
+def get_zones_cached_objects():
+    """
+    Returns a list of objects in all the zones of the specified tag. [zone_id, object_id, guid, name, description]
+    """
+
+
 def has_any_objects_in_household_inventory(objectidlist, householdid, zoneid):
     """
     Returns if any of the passed objects exist in the the Inventory. (objectidlist, householdid, zoneid)
@@ -407,6 +413,12 @@ def has_floor_at_location(zone_id, world_position, lot_level) -> "bool":
 def has_floor_feature(zone_id, feature_type, world_pos, level) -> "bool":
     """
     Checks if a floor feature is present on a tile. (zone_id, feature_type, world_pos, level) -> bool
+    """
+
+
+def has_zone_cached_objects(zone_id, id) -> "bool":
+    """
+    Returns whether a zone has objects for a specific Id (zone_id, id) -> bool
     """
 
 

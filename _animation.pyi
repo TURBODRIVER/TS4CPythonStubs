@@ -49,14 +49,16 @@ class ArbBase():
         Annotations Contributors: TURBODRIVER
         """
 
-    def _bytes(self):
+    def _bytes(self) -> "bytes":
         """
         _bytes() - Returns the contents of the ARB as bytes
+        Annotations Contributors: TURBODRIVER
         """
 
-    def _can_append(self, arbToAppend, safeMode=True):
+    def _can_append(self, arbToAppend, safeMode=True) -> "bool":
         """
         _append(arbToAppend, safeMode=True)
+        Annotations Contributors: TURBODRIVER
         """
 
     def _end_synchronized_group(self):
@@ -95,22 +97,25 @@ class ArbBase():
         Annotations Contributors: TURBODRIVER
         """
 
-    def _is_interruptible(self):
+    def _is_interruptible(self) -> "bool":
         """
         _bytes() - Returns true if the arb is interruptible
+        Annotations Contributors: TURBODRIVER
         """
 
-    def _normal_timeline_ends_in_looping_content(self, actor_id):
+    def _normal_timeline_ends_in_looping_content(self, actor_id) -> "bool":
         """
         _normal_timeline_ends_in_looping_content(actor_id)
         
         Returns True if the last content for the specified actor on the normal timeline
         is looping (infinite duration); False otherwise
+        Annotations Contributors: TURBODRIVER
         """
 
-    def _should_analyze(self):
+    def _should_analyze(self) -> "bool":
         """
         _bytes() - Returns true if the arb is needs to be analyzed ahead of time on the client (usually this is set if it contains an authored path)
+        Annotations Contributors: TURBODRIVER
         """
 
     @property
@@ -125,9 +130,10 @@ class ArbBase():
         _empty() - Returns True if the ARB contains no controllers
         """
 
-    def get_contents_as_string(self):
+    def get_contents_as_string(self) -> "str":
         """
         get_contents_as_string() - Returns the contents of this arb as a formatted text string
+        Annotations Contributors: TURBODRIVER
         """
 
     def get_estimated_duration(self) -> "float":
@@ -166,9 +172,10 @@ class ArbBase():
         _empty() - Returns True if the ARB contains no controllers
         """
 
-    def preload(self, *args):
+    def preload(self, *args) -> "None":
         """
         preload() - Issue preload requests for all essential content
+        Annotations Contributors: TURBODRIVER
         """
 
     def schedule(self, actor_id, controller, priority=10000, blend_in=-1.0, blend_out=-1.0):
@@ -215,6 +222,7 @@ class AsmBase():
     def _clear_actor_trackmask_override(self, actor_name):
         """
         _clear_actor_trackmask_override(actor_name)
+        Annotations Contributors: TURBODRIVER
         """
 
     def _enter(self) -> "bool":
@@ -304,6 +312,7 @@ class AsmBase():
     def _set_actor_trackmask_override(self, actor_name, track, trackmask_name):
         """
         _set_actor_trackmask_override(actor_name, track, trackmask_name)
+        Annotations Contributors: TURBODRIVER
         """
 
     def _set_current_state(self, state_name) -> "bool":
@@ -321,6 +330,7 @@ class AsmBase():
     def _set_reaction_actor(self, actor):
         """
         _set_reaction_actor(actor)
+        Annotations Contributors: TURBODRIVER
         """
 
     def _set_single_actor_parameter_if_possible(self, actor_name, parameter_name, value) -> "bool":
@@ -478,40 +488,47 @@ _ASM_REQUESTRESULT_TARGET_STATE_NOT_FOUND = 0
 def enable_native_reaction_event_handling(arg0):
     """
     Enables/disables native reaction event handling
+    Annotations Contributors: TURBODRIVER
     """
 
 
 def get_initial_offset_for_clip(x, y, z, w):
     """
     Returns the initial offset for a given clip as ((x, y, z), (x, y, z, w))
+    Annotations Contributors: TURBODRIVER
     """
 
 
 def get_joint_name_for_hash_from_rig(arg0, arg1):
     """
     Returns the name for a given bone in a specified rig.
+    Annotations Contributors: TURBODRIVER
     """
 
 
 def get_joint_name_for_index_from_rig(arg0, arg1):
     """
     Returns the name for a given bone in a specified rig.
+    Annotations Contributors: TURBODRIVER
     """
 
 
 def get_joint_transform_from_rig(pos, quat):
     """
     Returns the bind-pose transform for a given bone in a specified rig as tuple(pos, quat).
+    Annotations Contributors: TURBODRIVER
     """
 
 
 def get_mirrored_joint_name_hash(arg0, arg1):
     """
     Returns the corresponding mirrored joint name hash for a given joint.
+    Annotations Contributors: TURBODRIVER
     """
 
 
 def update_post_condition_arb(arg0, arg1):
     """
     Updates a post-condition ARB with the contents of a new ARB
+    Annotations Contributors: TURBODRIVER
     """

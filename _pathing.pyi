@@ -1865,9 +1865,10 @@ def test_connectivity_permissions_for_handle(kwarg0: Any = None, kwarg1: Any = N
     """
 
 
-def test_connectivity_pt_pt(kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None, kwarg3: Any = None):
+def test_connectivity_pt_pt(loc1, loc2, routing_context, ignore_objects=False) -> "bool":
     """
     Returns whether the given points are connected (route-able) in the nav mesh
+    Annotations Contributors: TURBODRIVER
     """
 
 

@@ -347,8 +347,10 @@ class Polygon():
     Polygon(vertices) -> A new polygon.  Vertices must be a sequence of Vector3.
     """
 
-    def __init__(self):
-        pass
+    def __init__(self, vertices: Sequence[Vector3]):
+        """
+        Annotations Contributors: TURBODRIVER
+        """
 
     def __bool__(self):
         """
