@@ -1,13 +1,17 @@
+# Annotations Created by TURBODRIVER
+
 """
 The primitive module encapsulates behavior related     to operations that take time to complete.
 """
 
-DATA = 1
-DONE = 0
-PersistVersion = 5
+from typing import *
 
-
-def factory(arg0, arg1, arg2, arg3):
+def factory(primitive_type: 'int', callback: 'Callable[..., None]', user_data: 'Optional[Any]', context: 'Optional[Any]'):
     """
     Bind a native Python Persist primitive
     """
+
+
+DATA = 1
+DONE = 0
+PersistVersion = 5

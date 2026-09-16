@@ -1,91 +1,100 @@
+# Annotations Created by TURBODRIVER
+
 """
 The placement module encapsulates functions for validating object placement.
 """
 
 from typing import *
 
+import _buildbuy
+import _geometry
+import _lot
+import _math
+import _pathing
 
 class FGLResult():
     """
     A FindGoodLocation Result object.
     """
 
-    def __init__(self, kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None, kwarg3: Any = None, kwarg4: Any = None):
-        pass
+    def __init__(self, location: 'Optional[_pathing.Location]' = None, score: 'float' = 0.0, search_type: 'int' = 0, user_data: 'Optional[Any]' = None, user_data_item_type: 'Optional[int]' = None):
+        """
+        A FindGoodLocation Result object.
+        """
 
     @property
-    def location(self):
+    def location(self) -> 'Optional[_pathing.Location]':
         """
         (routing_location) Location associated with this FGLResult
         """
 
     @location.setter
-    def location(self, value):
+    def location(self, value: 'Optional[_pathing.Location]'):
         """
         (routing_location) Location associated with this FGLResult
         """
 
     @property
-    def orientation(self):
+    def orientation(self) -> '_math.Quaternion':
         """
         (Quaternion) The 3D orientation associated with this FGLResult
         """
 
     @orientation.setter
-    def orientation(self, value):
+    def orientation(self, value: '_math.Quaternion'):
         """
         (Quaternion) The 3D orientation associated with this FGLResult
         """
 
     @property
-    def position(self):
+    def position(self) -> '_math.Vector3':
         """
         (Position) The 3D point associated with this FGLResult
         """
 
     @position.setter
-    def position(self, value):
+    def position(self, value: '_math.Vector3'):
         """
         (Position) The 3D point associated with this FGLResult
         """
 
     @property
-    def routing_surface_id(self):
+    def routing_surface_id(self) -> '_pathing.SurfaceIdentifier':
         """
         (Location) The 3D point associated with this FGLResult
         """
 
     @routing_surface_id.setter
-    def routing_surface_id(self, value):
+    def routing_surface_id(self, value: '_pathing.SurfaceIdentifier'):
         """
         (Location) The 3D point associated with this FGLResult
         """
 
     @property
-    def score(self):
+    def score(self) -> 'float':
         """
         (float) The score associated with this FGLResult
         """
 
     @score.setter
-    def score(self, value):
+    def score(self, value: 'float'):
         """
         (float) The score associated with this FGLResult
         """
 
     @property
-    def search_type(self):
+    def search_type(self) -> 'int':
         """
         (uint32_t) The search_type associated with this FGLResult
         """
 
     @search_type.setter
-    def search_type(self, value):
+    def search_type(self, value: 'int'):
         """
         (uint32_t) The search_type associated with this FGLResult
         """
 
-    def set_user_data(self, arg0, arg1):
+    def set_user_data(self, user_data: 'Optional[Any]', user_data_item_type: 'int'):
         """
         Sets the UserData stored with this result.
         ARGS: Object, placement.ITEM_TYPE enum value
@@ -93,25 +102,25 @@ class FGLResult():
         """
 
     @property
-    def user_data(self):
+    def user_data(self) -> 'Optional[Any]':
         """
         (Object) The user_data associated with this FGLResult
         """
 
     @user_data.setter
-    def user_data(self, value):
+    def user_data(self, value: 'Optional[Any]'):
         """
         (Object) The user_data associated with this FGLResult
         """
 
     @property
-    def user_data_item_type(self):
+    def user_data_item_type(self) -> 'Optional[int]':
         """
         (int32_t) The item_type of the user_data associated with this FGLResult
         """
 
     @user_data_item_type.setter
-    def user_data_item_type(self, value):
+    def user_data_item_type(self, value: 'Optional[int]'):
         """
         (int32_t) The item_type of the user_data associated with this FGLResult
         """
@@ -122,10 +131,12 @@ class FGLResultStrategyDefault():
     Default FindGoodLocation Result Strategy.
     """
 
-    def __init__(self, kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None):
-        pass
+    def __init__(self):
+        """
+        Default FindGoodLocation Result Strategy.
+        """
 
-    def add_result(self, kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None, kwarg3: Any = None, kwarg4: Any = None):
+    def add_result(self, location: '_pathing.Location', score: 'float', search_type: 'int' = 0, user_data: 'Optional[Any]' = None, user_data_item_type: 'Optional[int]' = None) -> 'bool':
         """
         Add a result to the search.
         (Args/Keywords:
@@ -166,7 +177,7 @@ class FGLResultStrategyDefault():
         (bool [default=false]) Flag if search will stop as soon as max_results is reached.   Normally, results will continue through all steps and if max_results is reached, search will continue, replacing the lowest-scored results with anything higher.  If this flag is set, the search will stop as soon as max_results is reached, regardless of result scores.
         """
 
-    def get_results(self, *args):
+    def get_results(self) -> 'List[Tuple[_pathing.Location, float, int]]':
         """
         Results from search.
         (Args: None)
@@ -222,7 +233,7 @@ class FGLResultStrategyDefault():
         """
 
     @property
-    def num_results(self):
+    def num_results(self) -> 'int':
         """
         (uint32_t) Number of results.
         """
@@ -234,13 +245,13 @@ class FGLResultStrategyDefault():
         """
 
     @property
-    def num_results_added(self):
+    def num_results_added(self) -> 'int':
         """
         (uint32_t) Total number of results added (including results that were later cycled out due to higher scores).
         """
 
     @num_results_added.setter
-    def num_results_added(self, value):
+    def num_results_added(self, value: 'int'):
         """
         (uint32_t) Total number of results added (including results that were later cycled out due to higher scores).
         """
@@ -256,10 +267,12 @@ class FGLSearch():
     A FindGoodLocation Search object.
     """
 
-    def __init__(self, kwarg0: Any = None, kwarg1: Any = None):
-        pass
+    def __init__(self, search_strategy: 'Union[FGLSearchStrategyRouting, FGLSearchStrategyRoutingGoals]', result_strategy: 'FGLResultStrategyDefault'):
+        """
+        A FindGoodLocation Search object.
+        """
 
-    def add_data_to_search_strategies(self, kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None):
+    def add_data_to_search_strategies(self, data: 'Any', data_type: 'int', search_type: 'int' = 0) -> 'bool':
         """
         Add data to all search strategies that match the search_type filter and accept data of the specified type.
         (Args:
@@ -269,7 +282,7 @@ class FGLSearch():
         (Returns: True if the data was added to at least one search strategy, False otherwise
         """
 
-    def add_search_strategy(self, arg0):
+    def add_search_strategy(self, strategy: 'Union[FGLSearchStrategyRouting, FGLSearchStrategyRoutingGoals]'):
         """
         Add a Search Strategy.
         (Args: instance of FGLSearchStrategy (subtype) object)
@@ -283,7 +296,7 @@ class FGLSearch():
         (Returns: None)
         """
 
-    def finalize_search(self):
+    def finalize_search(self) -> 'bool':
         """
         Finalizes SearchStep values and cleans up context data.  You only need to call this when using search_step().
         If using search(), this is done automatically.
@@ -291,14 +304,14 @@ class FGLSearch():
         (Returns: True if the search succeeded, False otherwise)
         """
 
-    def get_results(self, *args):
+    def get_results(self) -> 'List[FGLResult]':
         """
         Gets the results of the Search.
         (Args: None)
         (Returns: list of FGLResult objects)
         """
 
-    def get_search_strategy(self, arg0):
+    def get_search_strategy(self, index: 'int') -> 'Optional[Union[FGLSearchStrategyRouting, FGLSearchStrategyRoutingGoals]]':
         """
         Get a search strategy.
         (Args: nIndex(uint32_t))
@@ -306,7 +319,7 @@ class FGLSearch():
         """
 
     @property
-    def id(self):
+    def id(self) -> 'int':
         """
         (uint64_t) ID of this search.
         """
@@ -318,7 +331,7 @@ class FGLSearch():
         """
 
     @property
-    def num_results(self):
+    def num_results(self) -> 'int':
         """
         (uint32_t) Number of results returned (so far) for this search.
         """
@@ -330,7 +343,7 @@ class FGLSearch():
         """
 
     @property
-    def num_search_strategies(self):
+    def num_search_strategies(self) -> 'int':
         """
         (uint32_t) Number of Search Strategies for this search.
         """
@@ -341,7 +354,7 @@ class FGLSearch():
         (uint32_t) Number of Search Strategies for this search.
         """
 
-    def remove_search_strategy(self, arg0):
+    def remove_search_strategy(self, strategy_or_index: 'Union[int, FGLSearchStrategyRouting, FGLSearchStrategyRoutingGoals]') -> 'bool':
         """
         Remove a Search Strategy.
         (Args: instance of FGLSearchStrategy (subtype) OR nIndex (uint32_t))(Returns: True if the strategy was removed, False otherwise)
@@ -357,7 +370,7 @@ class FGLSearch():
         """
 
     @property
-    def result_strategy(self):
+    def result_strategy(self) -> 'FGLResultStrategy':
         """
         FGLResultStrategy
         """
@@ -368,7 +381,7 @@ class FGLSearch():
         FGLResultStrategy
         """
 
-    def search(self, *args):
+    def search(self) -> 'bool':
         """
         Runs the Search.
         (Args: None)
@@ -376,18 +389,18 @@ class FGLSearch():
         """
 
     @property
-    def search_result(self):
+    def search_result(self) -> 'int':
         """
         (enum value (uint32_t)) Search Result.
         """
 
     @search_result.setter
-    def search_result(self, value):
+    def search_result(self, value: 'int'):
         """
         (enum value (uint32_t)) Search Result.
         """
 
-    def search_step(self, *args):
+    def search_step(self) -> 'bool':
         """
         Runs a Search Step.
         (Args: None)
@@ -395,7 +408,7 @@ class FGLSearch():
         """
 
     @property
-    def should_abort_search(self):
+    def should_abort_search(self) -> 'bool':
         """
         (bool) If this is True, search will not run.
         """
@@ -406,7 +419,7 @@ class FGLSearch():
         (bool) If this is True, search will not run.
         """
 
-    def validate_input(self, *args):
+    def validate_input(self) -> 'bool':
         """
         Validates that the search has valid input (search strategies, result strategy, etc).
         (Args: None)
@@ -419,45 +432,47 @@ class FGLSearchStrategyRouting():
     FGL Search Strategy to search the routing navmesh (i.e. PathPlanner space)
     """
 
-    def __init__(self, kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None, kwarg3: Any = None, kwarg4: Any = None, kwarg5: Any = None, kwarg6: Any = None, kwarg7: Any = None, kwarg8: Any = None, kwarg9: Any = None, kwarg10: Any = None, kwarg11: Any = None, kwarg12: Any = None, kwarg13: Any = None, kwarg14: Any = None, kwarg15: Any = None, kwarg16: Any = None, kwarg17: Any = None, kwarg18: Any = None, kwarg19: Any = None):
-        pass
+    def __init__(self, start_location: 'Optional[_pathing.Location]' = None, **kwargs):
+        """
+        FGL Search Strategy to search the routing navmesh (i.e. PathPlanner space)
+        """
 
-    def add_ignored_object_id(self, arg0):
+    def add_ignored_object_id(self, obj_id: 'int'):
         """
         Adds the ObjectID to the Search Strategy's Ignored Object ID list.
         (Args: Object ID
         (Returns: True if the Object ID was successfully added, False otherwise)
         """
 
-    def add_offset_restriction(self, subtype):
+    def add_offset_restriction(self, offset_restriction: 'Union[_geometry.AbsoluteOrientationRange, _geometry.RelativeFacingRange, _geometry.RelativeFacingWithCircle]') -> 'bool':
         """
         Adds the Offset Restriction to the Search Strategy.
         (Args: Offset Restriction (subtype)
         (Returns: True if the Offset Restriction was successfully added, False otherwise)
         """
 
-    def add_polygon(self, arg0, arg1):
+    def add_polygon(self, polygon: '_geometry.Polygon', routing_surface: '_pathing.SurfaceIdentifier'):
         """
         Adds a Polygon to the Search Strategy.
         (Args: Polygon (subtype), routing.SurfaceIdentifier
         (Returns: True if the Polygon (and surface) was successfully added, False otherwise)
         """
 
-    def add_polygon_constraint(self, kwarg0: Any = None, kwarg1: Any = None):
+    def add_polygon_constraint(self, polygon_or_constraint: 'Union[_geometry.Polygon, _geometry.CompoundPolygon]', routing_surface: 'Optional[_pathing.SurfaceIdentifier]' = None) -> 'bool':
         """
         Adds the Polygon Constraint to the Search Strategy.
         (Args: Polygon Constraint Object OR Polygon, SurfaceIdentifier
         (Returns: True if the Polygon Constraint was successfully added, False otherwise)
         """
 
-    def add_restriction(self, subtype):
+    def add_restriction(self, restriction: 'Union[_geometry.Polygon, _geometry.CompoundPolygon, _geometry.Circle, _geometry.AbsoluteOrientationRange, _geometry.RelativeFacingRange, _geometry.RelativeFacingWithCircle]') -> 'bool':
         """
         Adds the Restriction to the Search Strategy.
         (Args: Restriction (subtype)
         (Returns: True if the Restriction was successfully added, False otherwise)
         """
 
-    def add_scoring_function(self, subtype):
+    def add_scoring_function(self, scoring_function: 'Union[ScoringFunctionAngular, ScoringFunctionLinear, ScoringFunctionPolygon, ScoringFunctionRadial]') -> 'bool':
         """
         Adds the Scoring Function to the Search Strategy.
         (Args: ScoringFunction (subtype)
@@ -465,7 +480,7 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def allow_goals_in_sim_intended_positions(self):
+    def allow_goals_in_sim_intended_positions(self) -> 'bool':
         """
         (bool) Normally goals points are not allowed if they are within the area that another Sim
         intends to occupy.   This flag disables that check.
@@ -479,7 +494,7 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def allow_goals_in_sim_positions(self):
+    def allow_goals_in_sim_positions(self) -> 'bool':
         """
         (bool) Normally goals points are not allowed if they are within the area occupied by a Sim
         (excluding the Sim's own position).   This flag disables that check.
@@ -493,7 +508,7 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def allow_too_close_to_obstacle(self):
+    def allow_too_close_to_obstacle(self) -> 'bool':
         """
         (bool) Normally goals points are not allowed if they are within the Sim's radius of an obstacle.
         Turning this flag disables this check.
@@ -507,14 +522,14 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def avoid_sim_radius(self):
+    def avoid_sim_radius(self) -> 'float':
         """
         (float) When checking against other Sims, those within (sim_radius + avoid_sim_radius) will
         count as collisions (and thus reject the result).  Default = 0.0.
         """
 
     @avoid_sim_radius.setter
-    def avoid_sim_radius(self, value):
+    def avoid_sim_radius(self, value: 'float'):
         """
         (float) When checking against other Sims, those within (sim_radius + avoid_sim_radius) will
         count as collisions (and thus reject the result).  Default = 0.0.
@@ -589,7 +604,7 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def contains_anywhere_constraint(self):
+    def contains_anywhere_constraint(self) -> 'bool':
         """
         (bool) Flag to determine whether an 'Anywhere' constraint was added to the parameters.
         """
@@ -601,7 +616,7 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def contains_nowhere_constraint(self):
+    def contains_nowhere_constraint(self) -> 'bool':
         """
         (bool) Flag to determine whether a 'Nowhere' constraint was added to the parameters.
         """
@@ -613,7 +628,7 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def enclosed_room_only(self):
+    def enclosed_room_only(self) -> 'bool':
         """
         (bool) Flag to determine whether the goal points will be limited to enclosed room.
         """
@@ -624,70 +639,70 @@ class FGLSearchStrategyRouting():
         (bool) Flag to determine whether the goal points will be limited to enclosed room.
         """
 
-    def get_offset_info(self):
+    def get_offset_info(self) -> 'Optional[Tuple[float, Optional[Sequence[Union[_geometry.AbsoluteOrientationRange, _geometry.RelativeFacingRange, _geometry.RelativeFacingWithCircle]]]]]':
         """
         Getter for Client-Side OffsetInfo.
         (Args: None
         (Returns: OffsetInfo tuple if successfully constructed. None otherwise.)
         """
 
-    def get_offset_restriction(self, arg0):
+    def get_offset_restriction(self, index: 'int') -> 'Optional[Union[_geometry.AbsoluteOrientationRange, _geometry.RelativeFacingRange, _geometry.RelativeFacingWithCircle]]':
         """
         Gets the Offset Restriction stored at the specified index or None on error (index out of bounds, etc).
         (Args: nIdx (uint32_t)
         (Returns: Offset Restriction (subtype) if index is valid, None otherwise)
         """
 
-    def get_polygon(self, arg0):
+    def get_polygon(self, index: 'int') -> '_geometry.Polygon':
         """
         Gets the Polygon stored at the specified index or None on error (index out of bounds, etc).
         (Args: nIdx (uint32_t)
         (Returns: Polygon (subtype) if index is valid, None otherwise)
         """
 
-    def get_polygon_constraint(self, arg0):
+    def get_polygon_constraint(self, index: 'int') -> 'Optional[_geometry.Polygon]':
         """
         Gets the Polygon Constraint stored at the specified index or None on error (index out of bounds, etc).
         (Args: nIdx (uint32_t)
         (Returns: Polygon Constraint if index is valid, None otherwise)
         """
 
-    def get_raytest_info(self):
+    def get_raytest_info(self) -> 'Optional[Tuple[float, float, float, int, Optional[_math.Vector3]]]':
         """
         Getter for Client-Side RaytestInfo.
         (Args: None
         (Returns: RaytestInfo tuple if successfully constructed. None otherwise.)
         """
 
-    def get_restriction(self, arg0):
+    def get_restriction(self, index: 'int') -> 'Optional[Union[_geometry.Polygon, _geometry.CompoundPolygon, _geometry.Circle, _geometry.AbsoluteOrientationRange, _geometry.RelativeFacingRange, _geometry.RelativeFacingWithCircle]]':
         """
         Gets the Restriction stored at the specified index or None on error (index out of bounds, etc).
         (Args: nIdx (uint32_t)
         (Returns: Restriction (subtype) if index is valid, None otherwise)
         """
 
-    def get_routing_surface(self, arg0):
+    def get_routing_surface(self, index: 'int') -> 'Optional[_pathing.SurfaceIdentifier]':
         """
         Gets the SurfaceIdentifier for the Polygon stored at the specified index or None on error (index out of bounds, etc).
         (Args: nIdx (uint32_t)
         (Returns: routing.SurfaceIdentifier if index is valid, None otherwise)
         """
 
-    def get_scoring_function(self, arg0):
+    def get_scoring_function(self, index: 'int') -> 'Optional[Union[ScoringFunctionAngular, ScoringFunctionLinear, ScoringFunctionPolygon, ScoringFunctionRadial]]':
         """
         Gets the Scoring Function stored at the specified index or None on error (index out of bounds, etc).
         (Args: nIdx (uint32_t)
         (Returns: ScoringFunction (subtype) if index is valid, None otherwise)
         """
 
-    def get_search_flags(self):
+    def get_search_flags(self) -> 'int':
         """
         Gets the search flags held on the search strategy.
         (Args: None
         (Returns: Search Flags.
         """
 
-    def get_water_depth_info(self):
+    def get_water_depth_info(self) -> 'Optional[Tuple[Optional[float], Optional[float], Optional[float], Optional[float]]]':
         """
         Getter for the Client-side WaterDepthInfo.
         (Args: None
@@ -695,19 +710,19 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def height_tolerance(self):
+    def height_tolerance(self) -> 'float':
         """
         (float) Range of how much height difference we allow between polygon points.
         """
 
     @height_tolerance.setter
-    def height_tolerance(self, value):
+    def height_tolerance(self, value: 'float'):
         """
         (float) Range of how much height difference we allow between polygon points.
         """
 
     @property
-    def lot_terrain_only(self):
+    def lot_terrain_only(self) -> 'bool':
         """
         (bool) Flag to determine whether the goal points will be limited to only lot terrain.
         """
@@ -719,21 +734,21 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def max_distance(self):
+    def max_distance(self) -> 'float':
         """
         (float) Maximum Distance from Start Location to test before giving up.   -1.0 (default)
         means search until there is no more map to search.
         """
 
     @max_distance.setter
-    def max_distance(self, value):
+    def max_distance(self, value: 'float'):
         """
         (float) Maximum Distance from Start Location to test before giving up.   -1.0 (default)
         means search until there is no more map to search.
         """
 
     @property
-    def max_pond_water_depth(self):
+    def max_pond_water_depth(self) -> 'float':
         """
         (float) If provided, each vertex of the test polygon along with its centroid will be tested to determine
         whether the pond water at the test location is at most this deep. Values <= 0 indicate placement in
@@ -749,21 +764,21 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def max_steps(self):
+    def max_steps(self) -> 'int':
         """
         Maximum number of steps before search ends.  Default = 1.  For FGLSearchStrategyRoutingGoals,
         it's best to keep this value at 1.
         """
 
     @max_steps.setter
-    def max_steps(self, value):
+    def max_steps(self, value: 'int'):
         """
         Maximum number of steps before search ends.  Default = 1.  For FGLSearchStrategyRoutingGoals,
         it's best to keep this value at 1.
         """
 
     @property
-    def max_water_depth(self):
+    def max_water_depth(self) -> 'float':
         """
         (float) If provided, each vertex of the test polygon along with its centroid will be tested to determine
         whether the ocean water at the test location is at most this deep.  Values <= 0 indicate placement in
@@ -779,19 +794,19 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def min_distance(self):
+    def min_distance(self) -> 'float':
         """
         (float) Min Distance from Start Location to start testing. 0.0 (default)
         """
 
     @min_distance.setter
-    def min_distance(self, value):
+    def min_distance(self, value: 'float'):
         """
         (float) Min Distance from Start Location to start testing. 0.0 (default)
         """
 
     @property
-    def min_head_room(self):
+    def min_head_room(self) -> 'float':
         """
         (float) specifies the min headroom required
         """
@@ -803,7 +818,7 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def min_pond_water_depth(self):
+    def min_pond_water_depth(self) -> 'float':
         """
         (float) If provided, each vertex of the test polygon along with its centroid will be tested to determine
         whether the pond water at the test location is at least this deep. Values <= 0 indicate placement on
@@ -819,7 +834,7 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def min_water_depth(self):
+    def min_water_depth(self) -> 'float':
         """
         (float) If provided, each vertex of the test polygon along with its centroid will be tested to determine
         whether the ocean water at the test location is at least this deep.  Values <= 0 indicate placement on
@@ -907,49 +922,49 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def object_def_id(self):
+    def object_def_id(self) -> 'int':
         """
         (uint64_t) Object def ID of the object being tested. This is only used when testing buildbuy placement,
         but object_id or object_def_id is required when doing so.
         """
 
     @object_def_id.setter
-    def object_def_id(self, value):
+    def object_def_id(self, value: 'int'):
         """
         (uint64_t) Object def ID of the object being tested. This is only used when testing buildbuy placement,
         but object_id or object_def_id is required when doing so.
         """
 
     @property
-    def object_def_state_index(self):
+    def object_def_state_index(self) -> 'int':
         """
         (uint32_t) Object def state index of the object being tested. This is only used when testing buildbuy placement,
         but object_id or object_def_id is required when doing so.
         """
 
     @object_def_state_index.setter
-    def object_def_state_index(self, value):
+    def object_def_state_index(self, value: 'int'):
         """
         (uint32_t) Object def state index of the object being tested. This is only used when testing buildbuy placement,
         but object_id or object_def_id is required when doing so.
         """
 
     @property
-    def object_id(self):
+    def object_id(self) -> 'int':
         """
         (uint64_t) Object ID of the object being tested.  This is only used when testing buildbuy placement,
         but object_id or object_def_id is required when doing so.
         """
 
     @object_id.setter
-    def object_id(self, value):
+    def object_id(self, value: 'int'):
         """
         (uint64_t) Object ID of the object being tested.  This is only used when testing buildbuy placement,
         but object_id or object_def_id is required when doing so.
         """
 
     @property
-    def offset_distance(self):
+    def offset_distance(self) -> 'float':
         """
         (float) Offset distance from test position.
         """
@@ -961,19 +976,19 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def position_increment(self):
+    def position_increment(self) -> 'float':
         """
         (float) Position Increment (in meters) between each test point.  Default is 0.3
         """
 
     @position_increment.setter
-    def position_increment(self, value):
+    def position_increment(self, value: 'float'):
         """
         (float) Position Increment (in meters) between each test point.  Default is 0.3
         """
 
     @property
-    def random_range_orientation(self):
+    def random_range_orientation(self) -> 'float':
         """
         (float) Range to adjust goal point final orientation.
         """
@@ -985,7 +1000,7 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def random_range_weighting(self):
+    def random_range_weighting(self) -> 'float':
         """
         (float) Range to adjust goal point final weighting score.
         """
@@ -997,7 +1012,7 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def random_seed(self):
+    def random_seed(self) -> 'int':
         """
         (uint32_t) Random Seed used for this Search Strategy.
         """
@@ -1009,7 +1024,7 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def raytest_end_offset(self):
+    def raytest_end_offset(self) -> 'float':
         """
         (float) End height offset
         """
@@ -1021,7 +1036,7 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def raytest_ignore_flags(self):
+    def raytest_ignore_flags(self) -> 'int':
         """
         (uint32) test ignore flags
         """
@@ -1033,7 +1048,7 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def raytest_radius(self):
+    def raytest_radius(self) -> 'float':
         """
         (float) radius of the ray
         """
@@ -1045,7 +1060,7 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def raytest_start_offset(self):
+    def raytest_start_offset(self) -> 'float':
         """
         (float) Start height offset
         """
@@ -1068,42 +1083,42 @@ class FGLSearchStrategyRouting():
         The Vector3 position of the start of the ray
         """
 
-    def remove_ignored_object_id(self, arg0):
+    def remove_ignored_object_id(self, obj_id: 'int'):
         """
         Removes the Object ID from the Search Strategy's Ignored Object ID list.
         (Args: Object ID
         (Returns: None)
         """
 
-    def remove_offset_restriction(self, subtype):
+    def remove_offset_restriction(self, offset_restriction: 'Union[_geometry.AbsoluteOrientationRange, _geometry.RelativeFacingRange, _geometry.RelativeFacingWithCircle]') -> 'bool':
         """
         Removes the Offset Restriction to the Search Strategy.
         (Args: Offset Restriction (subtype)
         (Returns: True if the Offset Restriction was successfully removed, False otherwise)
         """
 
-    def remove_polygon(self, subtype):
+    def remove_polygon(self, polygon: 'Union[int, _geometry.Polygon]') -> 'bool':
         """
         Removes the Polygon (and associated SurfaceIdentifier) to the Search Strategy.
         (Args: Polygon (subtype)
         (Returns: True if the Polygon was successfully removed, False otherwise)
         """
 
-    def remove_polygon_constraint(self, arg0):
+    def remove_polygon_constraint(self, polygon_constraint: 'Union[_geometry.Polygon, _geometry.CompoundPolygon]') -> 'bool':
         """
         Removes the Polygon Constraint to the Search Strategy.
         (Args: Polygon Constraint
         (Returns: True if the Polygon Constraint was successfully removed, False otherwise)
         """
 
-    def remove_restriction(self, subtype):
+    def remove_restriction(self, restriction: 'Union[_geometry.Polygon, _geometry.CompoundPolygon, _geometry.Circle, _geometry.AbsoluteOrientationRange, _geometry.RelativeFacingRange, _geometry.RelativeFacingWithCircle]') -> 'bool':
         """
         Removes the Restriction to the Search Strategy.
         (Args: Restriction (subtype)
         (Returns: True if the Restriction was successfully removed, False otherwise)
         """
 
-    def remove_scoring_function(self, subtype):
+    def remove_scoring_function(self, scoring_function_or_index: 'Union[int, ScoringFunctionAngular, ScoringFunctionLinear, ScoringFunctionPolygon, ScoringFunctionRadial]') -> 'bool':
         """
         Removes the Scoring Function to the Search Strategy.
         (Args: ScoringFunction (subtype)
@@ -1119,13 +1134,13 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def rotation_increment(self):
+    def rotation_increment(self) -> 'float':
         """
         (float) Rotation Increment (in radians) between each test rotation.  Default is PI / 8.
         """
 
     @rotation_increment.setter
-    def rotation_increment(self, value):
+    def rotation_increment(self, value: 'float'):
         """
         (float) Rotation Increment (in radians) between each test rotation.  Default is PI / 8.
         """
@@ -1142,28 +1157,28 @@ class FGLSearchStrategyRouting():
         (RoutingContext) RoutingContext of the object or Sim associated with this Search Strategy.
         """
 
-    def set_offset_info(self):
+    def set_offset_info(self, offset_info: 'Tuple[float, Optional[Sequence[Union[_geometry.AbsoluteOrientationRange, _geometry.RelativeFacingRange, _geometry.RelativeFacingWithCircle]]]]') -> 'bool':
         """
         Setter for Client-Side OffsetInfo. Argument must not be None.
         (Args: OffsetInfo
         (Returns: True if successfully set, False otherwise)
         """
 
-    def set_raytest_info(self):
+    def set_raytest_info(self, raytest_info: 'Tuple[float, float, float, int, Optional[_math.Vector3]]') -> 'bool':
         """
         Setter for Client-Side RaytestInfo. Argument must not be None.
         (Args: RaytestInfo
         (Returns: True if successfully set, False otherwise)
         """
 
-    def set_search_flags(self):
+    def set_search_flags(self, flags: 'int'):
         """
         Sets the search flags held on the search strategy. Argument must not be None.
         (Args: Search Flags (UInt32)
         (Returns: True if search flags set successfully, False otherwise.
         """
 
-    def set_water_depth_info(self):
+    def set_water_depth_info(self, water_depth_info: 'Tuple[Optional[float], Optional[float], Optional[float], Optional[float]]') -> 'bool':
         """
         Setter for the Client-side WaterDepthInfo. Argument must not be None.
         (Args: WaterdepthInfo
@@ -1171,35 +1186,35 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def should_raytest(self):
+    def should_raytest(self) -> 'bool':
         """
         (bool) When this flag is turned on, FGL Searches will raytest between the start and end positions against
         footprints/buildbuy obstacles.
         """
 
     @should_raytest.setter
-    def should_raytest(self, value):
+    def should_raytest(self, value: 'bool'):
         """
         (bool) When this flag is turned on, FGL Searches will raytest between the start and end positions against
         footprints/buildbuy obstacles.
         """
 
     @property
-    def should_test_buildbuy(self):
+    def should_test_buildbuy(self) -> 'bool':
         """
         (bool) When this flag is turned on, FGL Searches will test against placement
         footprints/buildbuy obstacles.
         """
 
     @should_test_buildbuy.setter
-    def should_test_buildbuy(self, value):
+    def should_test_buildbuy(self, value: 'bool'):
         """
         (bool) When this flag is turned on, FGL Searches will test against placement
         footprints/buildbuy obstacles.
         """
 
     @property
-    def should_test_routing(self):
+    def should_test_routing(self) -> 'bool':
         """
         (bool) When this flag is turned on, FGL Searches will test against routing footprints.
         If neither this flag or should_test_buildbuy is set, the search will behave as if this flag
@@ -1215,7 +1230,7 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def spiral_inwards(self):
+    def spiral_inwards(self) -> 'bool':
         """
         (bool) When this flag is turned on, FGL Searches will spiral inwards rather than out
         use in conjunction with min_distance.
@@ -1241,7 +1256,7 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def start_object_contour_index(self):
+    def start_object_contour_index(self) -> 'int':
         """
         (uint32_t) Contour Index of the (navmesh)FootprintID of start object.   Used when
         stay_in_same_connectivity_group or stay_in_connected_connectivity_group are set, and allows the
@@ -1259,7 +1274,7 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def start_object_footprint_id(self):
+    def start_object_footprint_id(self) -> 'int':
         """
         (uint64_t) (navmesh)FootprintID of start object.   Used when stay_in_same_connectivity_group
         or stay_in_connected_connectivity_group are set, and allows the algorithm to ignore that
@@ -1329,7 +1344,7 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def stay_in_connected_connectivity_group(self):
+    def stay_in_connected_connectivity_group(self) -> 'bool':
         """
         (bool) Flag to determine whether the goal points will be limited to a connectivity group that
         is connected to the start location.
@@ -1343,7 +1358,7 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def stay_in_current_block(self):
+    def stay_in_current_block(self) -> 'bool':
         """
         (bool) Flag to determine whether the goal points will be limited to the block the search starts in
         """
@@ -1355,7 +1370,7 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def stay_in_lot(self):
+    def stay_in_lot(self) -> 'bool':
         """
         (bool) Flag to determine whether the goal points will be limited to inside the lot bounds
         """
@@ -1367,7 +1382,7 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def stay_in_same_connectivity_group(self):
+    def stay_in_same_connectivity_group(self) -> 'bool':
         """
         (bool) Flag to determine whether the goal points will be limited to the same connectivity
         group as the start location.
@@ -1381,7 +1396,7 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def stay_outside(self):
+    def stay_outside(self) -> 'bool':
         """
         (bool) Flag to determine whether the goal points will be limited to outside
         """
@@ -1409,7 +1424,7 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def use_random_orientation(self):
+    def use_random_orientation(self) -> 'bool':
         """
         (bool) Flag to determine whether goal points will each randomly adjust their final orientation
         within a range specified by random_range_orientation.
@@ -1423,7 +1438,7 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def use_random_weighting(self):
+    def use_random_weighting(self) -> 'bool':
         """
         (bool) Flag to determine whether goal points will each randomly adjust their final weighting
         within a range specified by random_range_weighting.
@@ -1437,7 +1452,7 @@ class FGLSearchStrategyRouting():
         """
 
     @property
-    def use_sim_footprint(self):
+    def use_sim_footprint(self) -> 'bool':
         """
         (bool) Flag to determine whether to use a circle with the Sim's radius as the test polygon.
         If this option is set, any polygons added will be ignored.
@@ -1450,7 +1465,7 @@ class FGLSearchStrategyRouting():
         If this option is set, any polygons added will be ignored.
         """
 
-    def validate_input(self):
+    def validate_input(self) -> 'bool':
         """
         Validates that the search strategy has valid input.
         (Args: None)
@@ -1463,24 +1478,26 @@ class FGLSearchStrategyRoutingGoals():
     FGL Search Strategy to find valid routing goal points.
     """
 
-    def __init__(self, kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None, kwarg3: Any = None, kwarg4: Any = None, kwarg5: Any = None, kwarg6: Any = None, kwarg7: Any = None, kwarg8: Any = None, kwarg9: Any = None, kwarg10: Any = None):
-        pass
+    def __init__(self):
+        """
+        FGL Search Strategy to find valid routing goal points.
+        """
 
-    def add_polygon(self, arg0, arg1):
+    def add_polygon(self, polygon: '_geometry.Polygon', routing_surface: '_pathing.SurfaceIdentifier'):
         """
         Adds the Scoring Function to the Search Strategy.
         (Args: Polygon (subtype), routing.SurfaceIdentifier
         (Returns: True if the Polygon (and surface) was successfully added, False otherwise)
         """
 
-    def add_restriction(self, subtype):
+    def add_restriction(self, restriction: 'Union[_geometry.Polygon, _geometry.CompoundPolygon, _geometry.Circle, _geometry.AbsoluteOrientationRange, _geometry.RelativeFacingRange, _geometry.RelativeFacingWithCircle]') -> 'bool':
         """
         Adds the Restriction to the Search Strategy.
         (Args: Restriction (subtype)
         (Returns: True if the Restriction was successfully added, False otherwise)
         """
 
-    def add_scoring_function(self, subtype):
+    def add_scoring_function(self, scoring_function: 'Union[ScoringFunctionAngular, ScoringFunctionLinear, ScoringFunctionPolygon, ScoringFunctionRadial]') -> 'bool':
         """
         Adds the Scoring Function to the Search Strategy.
         (Args: ScoringFunction (subtype)
@@ -1488,7 +1505,7 @@ class FGLSearchStrategyRoutingGoals():
         """
 
     @property
-    def allow_goals_in_sim_intended_positions(self):
+    def allow_goals_in_sim_intended_positions(self) -> 'int':
         """
         (uint32_t) Normally goals points are not allowed if they are within the area that another
         Sim intends to occupy.   This flag disables that check.
@@ -1502,7 +1519,7 @@ class FGLSearchStrategyRoutingGoals():
         """
 
     @property
-    def allow_goals_in_sim_positions(self):
+    def allow_goals_in_sim_positions(self) -> 'int':
         """
         (uint32_t) Normally goals points are not allowed if they are within the area occupied by
         a Sim (excluding the Sim's own position).   This flag disables that check.
@@ -1516,7 +1533,7 @@ class FGLSearchStrategyRoutingGoals():
         """
 
     @property
-    def allow_too_close_to_obstacle(self):
+    def allow_too_close_to_obstacle(self) -> 'int':
         """
         (uint32_t) Normally goals points are not allowed if they are within the Sim's radius of
         an obstacle.  Turning this flag disables this check.
@@ -1536,28 +1553,28 @@ class FGLSearchStrategyRoutingGoals():
         (Returns: None)
         """
 
-    def clear_polygons(self, *args):
+    def clear_polygons(self):
         """
         Clears the Polygons (and associated SurfaceIdentifiers) of the Search Strategy.
         (Args: None
         (Returns: None)
         """
 
-    def clear_restrictions(self, *args):
+    def clear_restrictions(self):
         """
         Clears the Restrictions of the Search Strategy.
         (Args: None
         (Returns: None)
         """
 
-    def clear_scoring_functions(self, *args):
+    def clear_scoring_functions(self):
         """
         Clears the Scoring Functions of the Search Strategy.
         (Args: None
         (Returns: None)
         """
 
-    def clear_scoring_restrictions_and_polygons(self, *args):
+    def clear_scoring_restrictions_and_polygons(self):
         """
         Clears the Scoring Functions, Restrictions, Polygons, and SurfaceIdentifiers of the Search Strategy.
         (Args: None
@@ -1565,7 +1582,7 @@ class FGLSearchStrategyRoutingGoals():
         """
 
     @property
-    def contains_anywhere_constraint(self):
+    def contains_anywhere_constraint(self) -> 'int':
         """
         (uint32_t) Flag to determine whether an 'Anywhere' constraint was added to the parameters.
         """
@@ -1577,7 +1594,7 @@ class FGLSearchStrategyRoutingGoals():
         """
 
     @property
-    def contains_nowhere_constraint(self):
+    def contains_nowhere_constraint(self) -> 'int':
         """
         (uint32_t) Flag to determine whether a 'Nowhere' constraint was added to the parameters.
         """
@@ -1588,42 +1605,42 @@ class FGLSearchStrategyRoutingGoals():
         (uint32_t) Flag to determine whether a 'Nowhere' constraint was added to the parameters.
         """
 
-    def get_polygon(self, arg0):
+    def get_polygon(self, index: 'int') -> '_geometry.Polygon':
         """
         Gets the Polygon stored at the specified index or None on error (index out of bounds, etc).
         (Args: nIdx (uint32_t)
         (Returns: Polygon (subtype) if index is valid, None otherwise)
         """
 
-    def get_restriction(self, arg0):
+    def get_restriction(self, index: 'int') -> 'Optional[Union[_geometry.Polygon, _geometry.CompoundPolygon, _geometry.Circle, _geometry.AbsoluteOrientationRange, _geometry.RelativeFacingRange, _geometry.RelativeFacingWithCircle]]':
         """
         Gets the Restriction stored at the specified index or None on error (index out of bounds, etc).
         (Args: nIdx (uint32_t)
         (Returns: Restriction (subtype) if index is valid, None otherwise)
         """
 
-    def get_routing_surface(self, arg0):
+    def get_routing_surface(self, index: 'int') -> 'Optional[_pathing.SurfaceIdentifier]':
         """
         Gets the SurfaceIdentifier for the Polygon stored at the specified index or None on error (index out of bounds, etc).
         (Args: nIdx (uint32_t)
         (Returns: routing.SurfaceIdentifier if index is valid, None otherwise)
         """
 
-    def get_scoring_function(self, arg0):
+    def get_scoring_function(self, index: 'int') -> 'Optional[Union[ScoringFunctionAngular, ScoringFunctionLinear, ScoringFunctionPolygon, ScoringFunctionRadial]]':
         """
         Gets the Scoring Function stored at the specified index or None on error (index out of bounds, etc).
         (Args: nIdx (uint32_t)
         (Returns: ScoringFunction (subtype) if index is valid, None otherwise)
         """
 
-    def get_search_flags(self):
+    def get_search_flags(self) -> 'int':
         """
         Gets the search flags held on the search strategy.
         (Args: None
         (Returns: Search Flags.
         """
 
-    def get_water_depth_info(self):
+    def get_water_depth_info(self) -> 'Optional[Tuple[Optional[float], Optional[float], Optional[float], Optional[float]]]':
         """
         Getter for the Client-side WaterDepthInfo.
         (Args: None
@@ -1631,7 +1648,7 @@ class FGLSearchStrategyRoutingGoals():
         """
 
     @property
-    def goal_density(self):
+    def goal_density(self) -> 'float':
         """
         (float) Desired number of goals per square meter.
         """
@@ -1643,7 +1660,7 @@ class FGLSearchStrategyRoutingGoals():
         """
 
     @property
-    def max_fails_per_face(self):
+    def max_fails_per_face(self) -> 'int':
         """
         (int32_t) Max number of times potential goal points can get discarded before face
         itself gets discarded from future consideration.
@@ -1657,13 +1674,13 @@ class FGLSearchStrategyRoutingGoals():
         """
 
     @property
-    def max_goals_per_face(self):
+    def max_goals_per_face(self) -> 'int':
         """
         (int32_t) Max number of goal points allowed per face (regardless of goal_density setting).
         """
 
     @max_goals_per_face.setter
-    def max_goals_per_face(self, value):
+    def max_goals_per_face(self, value: 'int'):
         """
         (int32_t) Max number of goal points allowed per face (regardless of goal_density setting).
         """
@@ -1719,7 +1736,7 @@ class FGLSearchStrategyRoutingGoals():
         """
 
     @property
-    def random_range_orientation(self):
+    def random_range_orientation(self) -> 'float':
         """
         (float) Range to adjust goal point final orientation.
         """
@@ -1731,7 +1748,7 @@ class FGLSearchStrategyRoutingGoals():
         """
 
     @property
-    def random_range_weighting(self):
+    def random_range_weighting(self) -> 'float':
         """
         (float) Range to adjust goal point final weighting score.
         """
@@ -1743,7 +1760,7 @@ class FGLSearchStrategyRoutingGoals():
         """
 
     @property
-    def random_seed(self):
+    def random_seed(self) -> 'int':
         """
         (uint32_t) Random Seed used for this Search Strategy.
         """
@@ -1754,21 +1771,21 @@ class FGLSearchStrategyRoutingGoals():
         (uint32_t) Random Seed used for this Search Strategy.
         """
 
-    def remove_polygon(self, subtype):
+    def remove_polygon(self, polygon: 'Union[int, _geometry.Polygon]') -> 'bool':
         """
         Removes the Polygon (and associated SurfaceIdentifier) to the Search Strategy.
         (Args: Polygon (subtype)
         (Returns: True if the Polygon was successfully removed, False otherwise)
         """
 
-    def remove_restriction(self, subtype):
+    def remove_restriction(self, restriction: 'Union[_geometry.Polygon, _geometry.CompoundPolygon, _geometry.Circle, _geometry.AbsoluteOrientationRange, _geometry.RelativeFacingRange, _geometry.RelativeFacingWithCircle]') -> 'bool':
         """
         Removes the Restriction to the Search Strategy.
         (Args: Restriction (subtype)
         (Returns: True if the Restriction was successfully removed, False otherwise)
         """
 
-    def remove_scoring_function(self, subtype):
+    def remove_scoring_function(self, scoring_function_or_index: 'Union[int, ScoringFunctionAngular, ScoringFunctionLinear, ScoringFunctionPolygon, ScoringFunctionRadial]') -> 'bool':
         """
         Removes the Scoring Function to the Search Strategy.
         (Args: ScoringFunction (subtype)
@@ -1795,14 +1812,14 @@ class FGLSearchStrategyRoutingGoals():
         (RoutingContext) RoutingContext of the Object or Sim associated with this Search Strategy.
         """
 
-    def set_search_flags(self):
+    def set_search_flags(self, flags: 'int'):
         """
         Gets the search flags held on the search strategy. Arguments must not be None.
         (Args: Search Flags (UInt32)
         (Returns: True if search flags set successfully, False otherwise.
         """
 
-    def set_water_depth_info(self):
+    def set_water_depth_info(self, water_depth_info: 'Tuple[Optional[float], Optional[float], Optional[float], Optional[float]]') -> 'bool':
         """
         Setter for the Client-side WaterDepthInfo. Arguments must not be None.
         (Args: WaterdepthInfo
@@ -1810,7 +1827,7 @@ class FGLSearchStrategyRoutingGoals():
         """
 
     @property
-    def should_test_buildbuy(self):
+    def should_test_buildbuy(self) -> 'int':
         """
         (uint32_t) When this flag is turned on, FGL Searches will test against placement
         footprints/buildbuy obstacles.
@@ -1824,7 +1841,7 @@ class FGLSearchStrategyRoutingGoals():
         """
 
     @property
-    def should_test_routing(self):
+    def should_test_routing(self) -> 'int':
         """
         (uint32_t) When this flag is turned on, FGL Searches will test against routing footprints.
         If neither this flag or should_test_buildbuy is set, the search will behave as if this flag
@@ -1888,7 +1905,7 @@ class FGLSearchStrategyRoutingGoals():
         """
 
     @property
-    def stay_in_same_connectivity_group(self):
+    def stay_in_same_connectivity_group(self) -> 'int':
         """
         (uint32_t) Flag to determine whether the goal points will be limited to the same
         connectivity group as the start location.
@@ -1902,7 +1919,7 @@ class FGLSearchStrategyRoutingGoals():
         """
 
     @property
-    def use_random_orientation(self):
+    def use_random_orientation(self) -> 'int':
         """
         (uint32_t) Flag to determine whether goal points will each randomly adjust their final
         orientation within a range specified by random_range_orientation.
@@ -1916,7 +1933,7 @@ class FGLSearchStrategyRoutingGoals():
         """
 
     @property
-    def use_random_weighting(self):
+    def use_random_weighting(self) -> 'int':
         """
         (uint32_t) Flag to determine whether goal points will each randomly adjust their final
         weighting within a range specified by random_range_weighting.
@@ -1929,12 +1946,531 @@ class FGLSearchStrategyRoutingGoals():
         weighting within a range specified by random_range_weighting.
         """
 
-    def validate_input(self, *args):
+    def validate_input(self) -> 'bool':
         """
         Validates that the search strategy has valid input.
         (Args: None)
         (Returns: True if input is valid, False otherwise)
         """
+
+
+class ObjectQuadTree():
+    """
+    ObjectQuadTree(zoneID) -> A QuadTree used for efficient 2.5D (i.e. 2D + surface) spatial queries of objects within a zone
+    """
+
+    def __init__(self, zone_id: 'int'):
+        """
+        ObjectQuadTree(zoneID) -> A QuadTree used for efficient 2.5D (i.e. 2D + surface) spatial queries of objects within a zone
+        """
+
+    def insert(self, obj_id: 'int', bounds: 'Tuple[_math.Vector3, _math.Vector3]', item_type: 'int' = 0):
+        """
+        qt.insert(object, objectID, objecItemType, bounds, level, bIgnoreLevel)
+        Inserts 'object' (of objectItemType with ID objectID) into the ObjectQuadTree
+        with the specified bounds and level, or modifies the itemType, bounds
+        and/or level for an existing object
+        """
+
+    def query(self, bounds: 'Union[_geometry.Circle, _geometry.Polygon, Tuple[_math.Vector3, _math.Vector3]]', surface_id: 'Optional[Union[int, _pathing.SurfaceIdentifier]]' = None, filter: 'int' = 0, flags: 'int' = 0, exclude: 'Optional[Sequence[int]]' = None) -> 'List[Tuple[Any, ...]]':
+        """
+        qt.query(bounds, level = 0, objectItemType = ITEMTYPE_UNKNOWN, nFlags = OBJECT_QUAD_TREE_QUERY_FLAG_NONE) -> [object, ...]
+        A list of tuples (object, objectItemType) which were found within 'bounds' and 'level'.
+        If 'objectItemType' is specified, the search will only return objects of that type.
+        """
+
+    def remove(self, object_id: 'int', object_item_type: 'int' = 0):
+        """
+        qt.remove(objectID, objectItemType)
+        Removes object with specified ID and type from the ObjectQuadTree
+        """
+
+
+class ScoringFunctionAngular():
+    """
+    Represents a helper object to score points using an angular scoring function
+    where points are scored by measuring the angle between the vectors formed by
+      center -> a point in the direction of the ideal_angle
+      center -> scored point
+    If that angle is <= ideal_angle_width, the score is 1.0
+    If max_angle_width > 0 and ideal_angle_width < angle < (ideal_angle_width + max_angle_width),
+      the score is 1 - ((angle - ideal_angle_width)/max_angle_width)
+    if the angle > (ideal_angle_width + max_angle_width), the score is 0
+    """
+
+    def __init__(self, center: '_math.Vector3', ideal_angle: 'float', ideal_angle_width: 'float', max_angle_width: 'float'):
+        """
+        Represents a helper object to score points using an angular scoring function
+        where points are scored by measuring the angle between the vectors formed by
+          center -> a point in the direction of the ideal_angle
+          center -> scored point
+        If that angle is <= ideal_angle_width, the score is 1.0
+        If max_angle_width > 0 and ideal_angle_width < angle < (ideal_angle_width + max_angle_width),
+          the score is 1 - ((angle - ideal_angle_width)/max_angle_width)
+        if the angle > (ideal_angle_width + max_angle_width), the score is 0
+        """
+
+    @property
+    def center(self) -> '_math.Vector3':
+        """
+        center point
+        """
+
+    @center.setter
+    def center(self, value: '_math.Vector3'):
+        """
+        center point
+        """
+
+    def get_score(self, location: '_pathing.Location') -> 'float':
+        """
+        Gets score (normalized to [0,1] for a given point and routing_surface.
+        While a routing_surface can be passed as an optional second arg, it is ignored for
+        this type of scoring function.
+        ARGS:
+          (Vector3)point,
+          (routing.SurfaceIdentifier, ignored)routing_surface
+        """
+
+    @property
+    def ideal_angle(self) -> 'float':
+        """
+        ideal angle
+        """
+
+    @ideal_angle.setter
+    def ideal_angle(self, value: 'float'):
+        """
+        ideal angle
+        """
+
+    @property
+    def ideal_angle_width(self) -> 'float':
+        """
+        an angular difference < ideal_angle_width is scored 1.0
+        """
+
+    @ideal_angle_width.setter
+    def ideal_angle_width(self, value: 'float'):
+        """
+        an angular difference < ideal_angle_width is scored 1.0
+        """
+
+    @property
+    def max_angle_width(self) -> 'float':
+        """
+        an angular difference > (ideal_angle_width + max_angle_width) is scored 0
+        """
+
+    @max_angle_width.setter
+    def max_angle_width(self, value: 'float'):
+        """
+        an angular difference > (ideal_angle_width + max_angle_width) is scored 0
+        """
+
+    @property
+    def routing_surface(self):
+        """
+        routing surface (always invalid for this type of Scoring Function)
+        """
+
+    @routing_surface.setter
+    def routing_surface(self, value):
+        """
+        routing surface (always invalid for this type of Scoring Function)
+        """
+
+    def set_params(self, center: '_math.Vector3', ideal_angle: 'float', ideal_angle_width: 'float', max_angle_width: 'float'):
+        """
+        Sets Params for scoring function.
+        ARGS:
+          (Vector3)center,
+          (float/radians)ideal_angle,
+          (float/radians)ideal_angle_width,
+          (float/radians)max_angle_width
+        """
+
+
+class ScoringFunctionLinear():
+    """
+    Represents a helper object to score potential goals using a linear scoring function (i.e. dist from a line)
+    """
+
+    def __init__(self, point1: 'Optional[_math.Vector3]' = None, point2: 'Optional[_math.Vector3]' = None, ideal_distance: 'float' = 0.0, max_distance: 'float' = 0.0, routing_surface: 'Optional[_pathing.SurfaceIdentifier]' = None):
+        """
+        Represents a helper object to score potential goals using a linear scoring function (i.e. dist from a line)
+        """
+
+    def get_score(self, location: '_pathing.Location') -> 'float':
+        """
+        Gets score (normalized to [0,1] for a given point and routing_surface.
+        If routing_surface is not passed, or the scoring function has no associated routing_surface,
+        then the routing_surface is ignored, otherwise, if the routing_surfaces do not match, the score is 0.
+        ARGS:
+          (Vector3)point,
+          (routing.SurfaceIdentifier, optional:default = routing.SurfaceIdentifier.kInvalidID)routing_surface
+        """
+
+    @property
+    def ideal_distance(self) -> 'float':
+        """
+        (float) points that are closer than this distance are scored 1.0
+        """
+
+    @ideal_distance.setter
+    def ideal_distance(self, value: 'float'):
+        """
+        (float) points that are closer than this distance are scored 1.0
+        """
+
+    @property
+    def max_distance(self) -> 'float':
+        """
+        (float) points that are farther than this distance are scored 0.0
+        """
+
+    @max_distance.setter
+    def max_distance(self, value: 'float'):
+        """
+        (float) points that are farther than this distance are scored 0.0
+        """
+
+    @property
+    def point1(self) -> '_math.Vector3':
+        """
+        Line Point 1
+        """
+
+    @point1.setter
+    def point1(self, value: '_math.Vector3'):
+        """
+        Line Point 1
+        """
+
+    @property
+    def point2(self) -> '_math.Vector3':
+        """
+        Line Point 2
+        """
+
+    @point2.setter
+    def point2(self, value: '_math.Vector3'):
+        """
+        Line Point 2
+        """
+
+    @property
+    def routing_surface(self) -> 'Optional[_pathing.SurfaceIdentifier]':
+        """
+        routing surface (Default is invalid, which basically ignores surfaces when GetScore is called)
+        """
+
+    @routing_surface.setter
+    def routing_surface(self, value: 'Optional[_pathing.SurfaceIdentifier]'):
+        """
+        routing surface (Default is invalid, which basically ignores surfaces when GetScore is called)
+        """
+
+    def set_params(self, point1: '_math.Vector3', point2: '_math.Vector3', ideal_distance: 'float' = 0.0, max_distance: 'float' = 0.0, routing_surface: 'Optional[_pathing.SurfaceIdentifier]' = None):
+        """
+        Sets Params for scoring function.
+        Points are scored by measuring distance from line formed by initial point and angle,
+        then normalized to [0,1] where:
+        distance < ideal_distance is scored as 1,
+        ideal_distance < distance < max_distance is scored as 1->0,
+        and distance >= max_distance is scored as 0.
+        If routing_surface is not passed, calls to get_score will ignore the routing_surface.
+        ARGS:
+          (Vector3)point1,
+          (Vector3)point2,
+          (float)ideal_distance,
+          (float)max_distance,
+          (routing.SurfaceIdentifier, optional:default = routing.SurfaceIdentifier.kInvalidID)routing_surface
+        """
+
+
+class ScoringFunctionPolygon():
+    """
+    Represents a helper object to score potential goals using a polygon.  Points inside the polygon are always given a 1.0 score, otherwise they are scored as a linear function of distance from the nearest polygon edge.
+    """
+
+    def __init__(self, polygon: 'Optional[_geometry.Polygon]' = None, ideal_distance: 'float' = 0.0, max_distance: 'float' = 0.0, routing_surface: 'Optional[_pathing.SurfaceIdentifier]' = None):
+        """
+        Represents a helper object to score potential goals using a polygon.  Points inside the polygon are always given a 1.0 score, otherwise they are scored as a linear function of distance from the nearest polygon edge.
+        """
+
+    def get_score(self, location: '_pathing.Location') -> 'float':
+        """
+        Gets score (normalized to [0,1] for a given point and routing_surface.
+        If routing_surface is not passed, or the scoring function has no associated routing_surface,
+        then the routing_surface is ignored, otherwise, if the routing_surfaces do not match, the score is 0.
+        ARGS:
+          (Vector3)point,
+          (routing.SurfaceIdentifier, optional:default = routing.SurfaceIdentifier.kInvalidID)routing_surface
+        """
+
+    @property
+    def ideal_distance(self) -> 'float':
+        """
+        (float) points that are outside the polygon and are closer than this distance are scored 1.0
+        """
+
+    @ideal_distance.setter
+    def ideal_distance(self, value: 'float'):
+        """
+        (float) points that are outside the polygon and are closer than this distance are scored 1.0
+        """
+
+    @property
+    def max_distance(self) -> 'float':
+        """
+        (float) points that are outside the polygon and are farther than this distance are scored 0.0
+        """
+
+    @max_distance.setter
+    def max_distance(self, value: 'float'):
+        """
+        (float) points that are outside the polygon and are farther than this distance are scored 0.0
+        """
+
+    @property
+    def polygon(self) -> 'Polygon':
+        """
+        Polygon
+        """
+
+    @polygon.setter
+    def polygon(self, value):
+        """
+        Polygon
+        """
+
+    @property
+    def routing_surface(self) -> 'Optional[_pathing.SurfaceIdentifier]':
+        """
+        routing surface (Default is invalid, which basically ignores surfaces when GetScore is called)
+        """
+
+    @routing_surface.setter
+    def routing_surface(self, value: 'Optional[_pathing.SurfaceIdentifier]'):
+        """
+        routing surface (Default is invalid, which basically ignores surfaces when GetScore is called)
+        """
+
+    def set_params(self, polygon: 'Optional[_geometry.Polygon]' = None, ideal_distance: 'float' = 0.0, max_distance: 'float' = 0.0, routing_surface: 'Optional[_pathing.SurfaceIdentifier]' = None):
+        """
+        Sets Params for scoring function.  Points are scored by testing
+        if the point is in the polygon (if so, score is 1.0),
+        else measuring distance from the point to the nearest edge of the polygon,
+        then normalized to [0,1] where:
+          distance < ideal_distance is scored as 1,
+          ideal_distance < distance < max_distance is scored as 1->0,
+          and distance >= max_distance is scored as 0.
+        ARGS:
+          (Polygon)polygon,
+          (float, optional:default = 0.0)ideal_distance,
+          (float, optional:default = 0.0)max_distance
+          (routing.SurfaceIdentifier, optional:default = routing.SurfaceIdentifier.kInvalidID)routing_surface
+        """
+
+
+class ScoringFunctionRadial():
+    """
+    Represents a helper object to score potential goals using a radial scoring function (i.e. dist from a radius)
+    """
+
+    def __init__(self, center: 'Optional[_math.Vector3]' = None, optimal_distance_from_center: 'float' = 0.0, optimal_width: 'float' = 0.0, max_distance: 'float' = 0.0, routing_surface: 'Optional[_pathing.SurfaceIdentifier]' = None):
+        """
+        Represents a helper object to score potential goals using a radial scoring function (i.e. dist from a radius)
+        """
+
+    @property
+    def center(self) -> '_math.Vector3':
+        """
+        center point
+        """
+
+    @center.setter
+    def center(self, value: '_math.Vector3'):
+        """
+        center point
+        """
+
+    def get_score(self, location: '_pathing.Location') -> 'float':
+        """
+        Gets score (normalized to [0,1] for a given point and routing_surface.
+        If routing_surface is not passed, or the scoring function has no associated routing_surface,
+        then the routing_surface is ignored, otherwise, if the routing_surfaces do not match, the score is 0.
+        ARGS:
+          (Vector3)point,
+          (routing.SurfaceIdentifier, optional:default = routing.SurfaceIdentifier.kInvalidID)routing_surface
+        """
+
+    @property
+    def max_distance(self) -> 'float':
+        """
+        points that are farther than this distance are scored 0.0
+        """
+
+    @max_distance.setter
+    def max_distance(self, value: 'float'):
+        """
+        points that are farther than this distance are scored 0.0
+        """
+
+    @property
+    def optimal_distance_from_center(self) -> 'float':
+        """
+        optimal distance from center
+        """
+
+    @optimal_distance_from_center.setter
+    def optimal_distance_from_center(self, value: 'float'):
+        """
+        optimal distance from center
+        """
+
+    @property
+    def optimal_width(self) -> 'float':
+        """
+        points that are closer to optimal_distance_from_center than this are score 1.0
+        """
+
+    @optimal_width.setter
+    def optimal_width(self, value: 'float'):
+        """
+        points that are closer to optimal_distance_from_center than this are score 1.0
+        """
+
+    @property
+    def routing_surface(self) -> 'Optional[_pathing.SurfaceIdentifier]':
+        """
+        routing surface (Default is invalid, which basically ignores surfaces when GetScore is called)
+        """
+
+    @routing_surface.setter
+    def routing_surface(self, value: 'Optional[_pathing.SurfaceIdentifier]'):
+        """
+        routing surface (Default is invalid, which basically ignores surfaces when GetScore is called)
+        """
+
+    def set_params(self, center: '_math.Vector3', optimal_distance_from_center: 'float' = 0.0, optimal_width: 'float' = 0.0, max_distance: 'float' = 0.0, routing_surface: 'Optional[_pathing.SurfaceIdentifier]' = None):
+        """
+        Sets Params for scoring function.
+        Points are scored by measuring distance from line formed by initial point and angle,
+        then normalized to [0,1] where:
+          distance < ideal_distance is scored as 1,
+          ideal_distance < distance < max_distance is scored as 1->0,
+          and distance >= max_distance is scored as 0.
+        ARGS:
+          (Vector3)point1,
+          (Vector3)point2,
+          (float)ideal_distance,
+          (float)max_distance
+          (routing.SurfaceIdentifier, optional:default = routing.SurfaceIdentifier.kInvalidID)routing_surface
+        """
+
+
+def add_placement_footprint(object_id: 'int', zone_id: 'int', footprint: 'Union[int, _geometry.Polygon]', position: '_math.Vector3', orientation: '_math.Quaternion', scale: 'float' = 1.0):
+    pass
+
+
+def generate_routing_goals_for_polygon(routing_location: '_math.Location', polygon: '_geometry.Polygon', polygon_surface: '_pathing.SurfaceIdentifier', restrictions: 'Optional[Sequence[Union[_geometry.Polygon, _geometry.CompoundPolygon, _geometry.Circle, _geometry.AbsoluteOrientationRange, _geometry.RelativeFacingRange, _geometry.RelativeFacingWithCircle]]]' = None, orientation_restrictions: 'Optional[Sequence[Union[_geometry.AbsoluteOrientationRange, _geometry.RelativeFacingRange, _geometry.RelativeFacingWithCircle]]]' = None, object_ids_to_ignore: 'Optional[Set[int]]' = None, routing_context: 'Optional[_pathing.RoutingContext]' = None, flush_planner: 'bool' = False, sim_location_bonus: 'float' = 0.0, add_sim_location_as_goal: 'bool' = True, los_reference_pt: 'Optional[_math.Vector3]' = None, los_distance: 'float' = 2.5, max_points: 'int' = 100, ignore_outer_penalty_amount: 'int' = 2, target_object_id: 'int' = 0, even_coverage_step: 'float' = 2.0, single_goal_only: 'bool' = False, los_routing_context: 'Optional[_pathing.RoutingContext]' = None, all_blocking_edges_block_los: 'bool' = False, provided_points: 'Sequence[_math.Vector3]' = (), min_water_depth: 'Optional[float]' = None, max_water_depth: 'Optional[float]' = None, min_pond_water_depth: 'Optional[float]' = None, max_pond_water_depth: 'Optional[float]' = None, terrain_tags: 'Optional[Sequence[int]]' = None) -> 'List[_pathing.Goal]':
+    """
+    TODO: Write docstring
+    """
+
+
+def get_accurate_placement_footprint_polygon(definition_id: 'int') -> '_geometry.Polygon':
+    """
+    Return the first valid/enabled placement footprint polygon in the footprint resource
+    """
+
+
+def get_object_height(definition_id: 'int') -> 'float':
+    """
+    Return the height of the object from its footprint.
+    """
+
+
+def get_object_surface_footprint_polygon(definition_id: 'int') -> '_geometry.Polygon':
+    """
+    Return the first valid/enabled object surface footprint polygon in the footprint resource
+    """
+
+
+def get_placement_footprint_bounds(footprint: 'Union[int, _geometry.Polygon]', scale: 'float' = 1.0) -> 'Tuple[_math.Vector3, _math.Vector3]':
+    """
+    Return the untransformed bounds of the Compound Polygon for the footprint.
+    """
+
+
+def get_placement_footprint_compound_polygon(definition_id: 'int') -> '_geometry.CompoundPolygon':
+    """
+    Return all valid polygons in the footprint resource as a CompoundPolygon
+    """
+
+
+def get_placement_footprint_polygon(position: '_math.Vector3', orientation: '_math.Quaternion', routing_surface: 'Optional[_pathing.SurfaceIdentifier]' = None, footprint: 'Optional[Union[int, _geometry.Polygon]]' = None, scale: 'float' = 1.0) -> 'Optional[_geometry.Polygon]':
+    """
+    Gets the polygon for the object's footprint.
+      Args: (Vector3)Position, (Quaternion)Orientation, (routing_surface)routing_surface, (resource key)placement_footprint_id
+      Return: Polygon or None if the params are invalid.
+    """
+
+
+def get_routing_footprint_polygon(position: '_math.Vector3', orientation: '_math.Quaternion', routing_surface: 'Optional[_pathing.SurfaceIdentifier]' = None, footprint: 'Optional[Union[int, _geometry.Polygon]]' = None, scale: 'float' = 1.0) -> 'Optional[_geometry.Polygon]':
+    """
+    Return the largest valid/enabled routing footprint polygon in the footprint resource
+    """
+
+
+def get_sim_quadtree_for_zone(zone_id: 'int') -> 'ObjectQuadTree':
+    pass
+
+
+def has_object_surface_footprint(definition_id: 'int') -> 'bool':
+    """
+    Return if the object there is an object surface polygon in the footprint resource
+    """
+
+
+def ray_intersects_placement_3d(zone_id: 'int', ray_start: '_math.Vector3', ray_end: '_math.Vector3', objects_to_ignore: 'Optional[Sequence[int]]' = None, intersection_flags: 'int' = 0, radius: 'float' = 0.0) -> 'bool':
+    pass
+
+
+def remove_placement_footprint(object_id: 'int', zone_id: 'int'):
+    pass
+
+
+def surface_supports_object_placement(routing_surface: '_pathing.SurfaceIdentifier', definition_id: 'int') -> 'bool':
+    """
+    Test whether a surface can support the placement of a given object definition
+    """
+
+
+def test_footprint_intersection(circles: 'Sequence[Union[_geometry.Circle, Tuple[_math.Vector2, float]]]', footprint: 'Union[int, _geometry.Polygon]', position: 'Optional[_math.Vector3]' = None, orientation: 'Optional[_math.Quaternion]' = None, routing_surface: 'Optional[_pathing.SurfaceIdentifier]' = None) -> 'bool':
+    """
+    Test whether a collection of circles intersects with a specified footprint.
+    """
+
+
+def test_object_placement(definition_id: 'int', transform: '_math.Transform', routing_surface: '_pathing.SurfaceIdentifier') -> 'bool':
+    """
+    Returns whether or not the object with the given resource key can be placed at the given position and orientation
+    """
+
+
+def validate_los_source_location(location: '_pathing.Location') -> 'bool':
+    """
+    Test whether a location is a reasonable place to generate an LOS constraint around
+    """
+
+
+def validate_sim_location(location: '_pathing.Location') -> 'bool':
+    """
+    Test whether a location is a reasonable place to stand according to a routing context and a radius.
+    """
 
 
 FGL_SEARCH_DATA_TYPE_FLAG_CONTAINS_ANYWHERE_CONSTRAINT = 8
@@ -1979,505 +2515,3 @@ ITEMTYPE_SIM_POSITION = 5
 ITEMTYPE_SIM_ROUTING_CONTEXT = 1
 ITEMTYPE_UNKNOWN = 0
 NON_SUPPRESSED_FAILURE_GOAL_SCORE = -1.1754943508222875e-38
-
-
-class ObjectQuadTree():
-    """
-    ObjectQuadTree(zoneID) -> A QuadTree used for efficient 2.5D (i.e. 2D + surface) spatial queries of objects within a zone
-    """
-
-    def __init__(self, arg0):
-        pass
-
-    def insert(self, object, objectID, objecItemType, bounds, level, bIgnoreLevel):
-        """
-        qt.insert(object, objectID, objecItemType, bounds, level, bIgnoreLevel)
-        Inserts 'object' (of objectItemType with ID objectID) into the ObjectQuadTree
-        with the specified bounds and level, or modifies the itemType, bounds
-        and/or level for an existing object
-        """
-
-    def query(self, kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None, kwarg3: Any = None, kwarg4: Any = None, kwarg5: Any = None):
-        """
-        qt.query(bounds, level = 0, objectItemType = ITEMTYPE_UNKNOWN, nFlags = OBJECT_QUAD_TREE_QUERY_FLAG_NONE) -> [object, ...]
-        A list of tuples (object, objectItemType) which were found within 'bounds' and 'level'.
-        If 'objectItemType' is specified, the search will only return objects of that type.
-        """
-
-    def remove(self, kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None):
-        """
-        qt.remove(objectID, objectItemType)
-        Removes object with specified ID and type from the ObjectQuadTree
-        """
-
-
-class ScoringFunctionAngular():
-    """
-    Represents a helper object to score points using an angular scoring function
-    where points are scored by measuring the angle between the vectors formed by
-      center -> a point in the direction of the ideal_angle
-      center -> scored point
-    If that angle is <= ideal_angle_width, the score is 1.0
-    If max_angle_width > 0 and ideal_angle_width < angle < (ideal_angle_width + max_angle_width),
-      the score is 1 - ((angle - ideal_angle_width)/max_angle_width)
-    if the angle > (ideal_angle_width + max_angle_width), the score is 0
-    """
-
-    def __init__(self, arg0, arg1, arg2, arg3):
-        pass
-
-    @property
-    def center(self):
-        """
-        center point
-        """
-
-    @center.setter
-    def center(self, value):
-        """
-        center point
-        """
-
-    def get_score(self, kwarg0: Any = None, kwarg1: Any = None):
-        """
-        Gets score (normalized to [0,1] for a given point and routing_surface.
-        While a routing_surface can be passed as an optional second arg, it is ignored for
-        this type of scoring function.
-        ARGS:
-          (Vector3)point,
-          (routing.SurfaceIdentifier, ignored)routing_surface
-        """
-
-    @property
-    def ideal_angle(self):
-        """
-        ideal angle
-        """
-
-    @ideal_angle.setter
-    def ideal_angle(self, value):
-        """
-        ideal angle
-        """
-
-    @property
-    def ideal_angle_width(self):
-        """
-        an angular difference < ideal_angle_width is scored 1.0
-        """
-
-    @ideal_angle_width.setter
-    def ideal_angle_width(self, value):
-        """
-        an angular difference < ideal_angle_width is scored 1.0
-        """
-
-    @property
-    def max_angle_width(self):
-        """
-        an angular difference > (ideal_angle_width + max_angle_width) is scored 0
-        """
-
-    @max_angle_width.setter
-    def max_angle_width(self, value):
-        """
-        an angular difference > (ideal_angle_width + max_angle_width) is scored 0
-        """
-
-    @property
-    def routing_surface(self):
-        """
-        routing surface (always invalid for this type of Scoring Function)
-        """
-
-    @routing_surface.setter
-    def routing_surface(self, value):
-        """
-        routing surface (always invalid for this type of Scoring Function)
-        """
-
-    def set_params(self, arg0, arg1, arg2, arg3):
-        """
-        Sets Params for scoring function.
-        ARGS:
-          (Vector3)center,
-          (float/radians)ideal_angle,
-          (float/radians)ideal_angle_width,
-          (float/radians)max_angle_width
-        """
-
-
-class ScoringFunctionLinear():
-    """
-    Represents a helper object to score potential goals using a linear scoring function (i.e. dist from a line)
-    """
-
-    def __init__(self, kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None, kwarg3: Any = None, kwarg4: Any = None):
-        pass
-
-    def get_score(self, kwarg0: Any = None, kwarg1: Any = None):
-        """
-        Gets score (normalized to [0,1] for a given point and routing_surface.
-        If routing_surface is not passed, or the scoring function has no associated routing_surface,
-        then the routing_surface is ignored, otherwise, if the routing_surfaces do not match, the score is 0.
-        ARGS:
-          (Vector3)point,
-          (routing.SurfaceIdentifier, optional:default = routing.SurfaceIdentifier.kInvalidID)routing_surface
-        """
-
-    @property
-    def ideal_distance(self):
-        """
-        (float) points that are closer than this distance are scored 1.0
-        """
-
-    @ideal_distance.setter
-    def ideal_distance(self, value):
-        """
-        (float) points that are closer than this distance are scored 1.0
-        """
-
-    @property
-    def max_distance(self):
-        """
-        (float) points that are farther than this distance are scored 0.0
-        """
-
-    @max_distance.setter
-    def max_distance(self, value):
-        """
-        (float) points that are farther than this distance are scored 0.0
-        """
-
-    @property
-    def point1(self):
-        """
-        Line Point 1
-        """
-
-    @point1.setter
-    def point1(self, value):
-        """
-        Line Point 1
-        """
-
-    @property
-    def point2(self):
-        """
-        Line Point 2
-        """
-
-    @point2.setter
-    def point2(self, value):
-        """
-        Line Point 2
-        """
-
-    @property
-    def routing_surface(self):
-        """
-        routing surface (Default is invalid, which basically ignores surfaces when GetScore is called)
-        """
-
-    @routing_surface.setter
-    def routing_surface(self, value):
-        """
-        routing surface (Default is invalid, which basically ignores surfaces when GetScore is called)
-        """
-
-    def set_params(self, kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None, kwarg3: Any = None, kwarg4: Any = None):
-        """
-        Sets Params for scoring function.
-        Points are scored by measuring distance from line formed by initial point and angle,
-        then normalized to [0,1] where:
-        distance < ideal_distance is scored as 1,
-        ideal_distance < distance < max_distance is scored as 1->0,
-        and distance >= max_distance is scored as 0.
-        If routing_surface is not passed, calls to get_score will ignore the routing_surface.
-        ARGS:
-          (Vector3)point1,
-          (Vector3)point2,
-          (float)ideal_distance,
-          (float)max_distance,
-          (routing.SurfaceIdentifier, optional:default = routing.SurfaceIdentifier.kInvalidID)routing_surface
-        """
-
-
-class ScoringFunctionPolygon():
-    """
-    Represents a helper object to score potential goals using a polygon.  Points inside the polygon are always given a 1.0 score, otherwise they are scored as a linear function of distance from the nearest polygon edge.
-    """
-
-    def __init__(self, kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None, kwarg3: Any = None):
-        pass
-
-    def get_score(self, kwarg0: Any = None, kwarg1: Any = None):
-        """
-        Gets score (normalized to [0,1] for a given point and routing_surface.
-        If routing_surface is not passed, or the scoring function has no associated routing_surface,
-        then the routing_surface is ignored, otherwise, if the routing_surfaces do not match, the score is 0.
-        ARGS:
-          (Vector3)point,
-          (routing.SurfaceIdentifier, optional:default = routing.SurfaceIdentifier.kInvalidID)routing_surface
-        """
-
-    @property
-    def ideal_distance(self):
-        """
-        (float) points that are outside the polygon and are closer than this distance are scored 1.0
-        """
-
-    @ideal_distance.setter
-    def ideal_distance(self, value):
-        """
-        (float) points that are outside the polygon and are closer than this distance are scored 1.0
-        """
-
-    @property
-    def max_distance(self):
-        """
-        (float) points that are outside the polygon and are farther than this distance are scored 0.0
-        """
-
-    @max_distance.setter
-    def max_distance(self, value):
-        """
-        (float) points that are outside the polygon and are farther than this distance are scored 0.0
-        """
-
-    @property
-    def polygon(self):
-        """
-        Polygon
-        """
-
-    @polygon.setter
-    def polygon(self, value):
-        """
-        Polygon
-        """
-
-    @property
-    def routing_surface(self):
-        """
-        routing surface (Default is invalid, which basically ignores surfaces when GetScore is called)
-        """
-
-    @routing_surface.setter
-    def routing_surface(self, value):
-        """
-        routing surface (Default is invalid, which basically ignores surfaces when GetScore is called)
-        """
-
-    def set_params(self, kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None, kwarg3: Any = None):
-        """
-        Sets Params for scoring function.  Points are scored by testing
-        if the point is in the polygon (if so, score is 1.0),
-        else measuring distance from the point to the nearest edge of the polygon,
-        then normalized to [0,1] where:
-          distance < ideal_distance is scored as 1,
-          ideal_distance < distance < max_distance is scored as 1->0,
-          and distance >= max_distance is scored as 0.
-        ARGS:
-          (Polygon)polygon,
-          (float, optional:default = 0.0)ideal_distance,
-          (float, optional:default = 0.0)max_distance
-          (routing.SurfaceIdentifier, optional:default = routing.SurfaceIdentifier.kInvalidID)routing_surface
-        """
-
-
-class ScoringFunctionRadial():
-    """
-    Represents a helper object to score potential goals using a radial scoring function (i.e. dist from a radius)
-    """
-
-    def __init__(self, kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None, kwarg3: Any = None, kwarg4: Any = None):
-        pass
-
-    @property
-    def center(self):
-        """
-        center point
-        """
-
-    @center.setter
-    def center(self, value):
-        """
-        center point
-        """
-
-    def get_score(self, kwarg0: Any = None, kwarg1: Any = None):
-        """
-        Gets score (normalized to [0,1] for a given point and routing_surface.
-        If routing_surface is not passed, or the scoring function has no associated routing_surface,
-        then the routing_surface is ignored, otherwise, if the routing_surfaces do not match, the score is 0.
-        ARGS:
-          (Vector3)point,
-          (routing.SurfaceIdentifier, optional:default = routing.SurfaceIdentifier.kInvalidID)routing_surface
-        """
-
-    @property
-    def max_distance(self):
-        """
-        points that are farther than this distance are scored 0.0
-        """
-
-    @max_distance.setter
-    def max_distance(self, value):
-        """
-        points that are farther than this distance are scored 0.0
-        """
-
-    @property
-    def optimal_distance_from_center(self):
-        """
-        optimal distance from center
-        """
-
-    @optimal_distance_from_center.setter
-    def optimal_distance_from_center(self, value):
-        """
-        optimal distance from center
-        """
-
-    @property
-    def optimal_width(self):
-        """
-        points that are closer to optimal_distance_from_center than this are score 1.0
-        """
-
-    @optimal_width.setter
-    def optimal_width(self, value):
-        """
-        points that are closer to optimal_distance_from_center than this are score 1.0
-        """
-
-    @property
-    def routing_surface(self):
-        """
-        routing surface (Default is invalid, which basically ignores surfaces when GetScore is called)
-        """
-
-    @routing_surface.setter
-    def routing_surface(self, value):
-        """
-        routing surface (Default is invalid, which basically ignores surfaces when GetScore is called)
-        """
-
-    def set_params(self, kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None, kwarg3: Any = None, kwarg4: Any = None):
-        """
-        Sets Params for scoring function.
-        Points are scored by measuring distance from line formed by initial point and angle,
-        then normalized to [0,1] where:
-          distance < ideal_distance is scored as 1,
-          ideal_distance < distance < max_distance is scored as 1->0,
-          and distance >= max_distance is scored as 0.
-        ARGS:
-          (Vector3)point1,
-          (Vector3)point2,
-          (float)ideal_distance,
-          (float)max_distance
-          (routing.SurfaceIdentifier, optional:default = routing.SurfaceIdentifier.kInvalidID)routing_surface
-        """
-
-
-def add_placement_footprint(arg0, arg1, arg2, arg3, arg4, arg5):
-    pass
-
-
-def generate_routing_goals_for_polygon(kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None, kwarg3: Any = None, kwarg4: Any = None, kwarg5: Any = None, kwarg6: Any = None, kwarg7: Any = None, kwarg8: Any = None, kwarg9: Any = None, kwarg10: Any = None, kwarg11: Any = None, kwarg12: Any = None, kwarg13: Any = None, kwarg14: Any = None, kwarg15: Any = None, kwarg16: Any = None, kwarg17: Any = None, kwarg18: Any = None, kwarg19: Any = None, kwarg20: Any = None, kwarg21: Any = None, kwarg22: Any = None, kwarg23: Any = None, kwarg24: Any = None):
-    """
-    TODO: Write docstring
-    """
-
-
-def get_accurate_placement_footprint_polygon(arg0, arg1, arg2, arg3):
-    """
-    Return the first valid/enabled placement footprint polygon in the footprint resource
-    """
-
-
-def get_object_height():
-    """
-    Return the height of the object from its footprint.
-    """
-
-
-def get_object_surface_footprint_polygon(arg0, arg1, arg2, arg3):
-    """
-    Return the first valid/enabled object surface footprint polygon in the footprint resource
-    """
-
-
-def get_placement_footprint_bounds(kwarg0: Any = None, kwarg1: Any = None):
-    """
-    Return the untransformed bounds of the Compound Polygon for the footprint.
-    """
-
-
-def get_placement_footprint_compound_polygon(kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None, kwarg3: Any = None, kwarg4: Any = None):
-    """
-    Return all valid polygons in the footprint resource as a CompoundPolygon
-    """
-
-
-def get_placement_footprint_polygon(kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None, kwarg3: Any = None, kwarg4: Any = None):
-    """
-    Gets the polygon for the object's footprint.
-      Args: (Vector3)Position, (Quaternion)Orientation, (routing_surface)routing_surface, (resource key)placement_footprint_id
-      Return: Polygon or None if the params are invalid.
-    """
-
-
-def get_routing_footprint_polygon(kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None, kwarg3: Any = None, kwarg4: Any = None):
-    """
-    Return the largest valid/enabled routing footprint polygon in the footprint resource
-    """
-
-
-def get_sim_quadtree_for_zone(arg0):
-    pass
-
-
-def has_object_surface_footprint(arg0):
-    """
-    Return if the object there is an object surface polygon in the footprint resource
-    """
-
-
-def ray_intersects_placement_3d(kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None, kwarg3: Any = None, kwarg4: Any = None, kwarg5: Any = None, kwarg6: Any = None):
-    pass
-
-
-def remove_placement_footprint():
-    pass
-
-
-def surface_supports_object_placement(arg0, arg1):
-    """
-    Test whether a surface can support the placement of a given object definition
-    """
-
-
-def test_footprint_intersection(arg0, arg1, arg2, arg3, arg4):
-    """
-    Test whether a collection of circles intersects with a specified footprint.
-    """
-
-
-def test_object_placement(arg0, arg1, arg2, arg3):
-    """
-    Returns whether or not the object with the given resource key can be placed at the given position and orientation
-    """
-
-
-def validate_los_source_location(arg0):
-    """
-    Test whether a location is a reasonable place to generate an LOS constraint around
-    """
-
-
-def validate_sim_location(kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None, kwarg3: Any = None):
-    """
-    Test whether a location is a reasonable place to stand according to a routing context and a radius.
-    """

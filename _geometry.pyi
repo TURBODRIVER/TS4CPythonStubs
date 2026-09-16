@@ -1,9 +1,12 @@
+# Annotations Created by TURBODRIVER
+
 """
 Geometry Utilities
 """
 
 from typing import *
 
+import _math
 
 class AbsoluteOrientationRange():
     """
@@ -12,27 +15,31 @@ class AbsoluteOrientationRange():
     Orientation is restricted to be within angle/2 of facingAn orientation restriction that is an absolute range (in radians).
     """
 
-    def __init__(self, kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None, kwarg3: Any = None, kwarg4: Any = None):
-        pass
+    def __init__(self, ideal_angle: 'float' = 0.0, weight: 'float' = 1.0, max_offset: 'float' = 0.0, min_offset: 'float' = 0.0, relative_direction: 'Optional[_math.Vector3]' = None):
+        """
+        an absolute orientation range.
+        The facing and angle are given in radians.
+        Orientation is restricted to be within angle/2 of facingAn orientation restriction that is an absolute range (in radians).
+        """
 
     @property
-    def interval(self):
+    def interval(self) -> 'AngularInterval':
         """
         Interval
         """
 
     @interval.setter
-    def interval(self, value):
+    def interval(self, value: 'AngularInterval'):
         """
         Interval
         """
 
-    def range(self, arg0):
+    def range(self, angle: 'float') -> 'float':
         """
         Gets the interval at the specified point.  ARGS: (Vector3)point
         """
 
-    def set_params(self, kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None, kwarg3: Any = None, kwarg4: Any = None):
+    def set_params(self, ideal_angle: 'float', weight: 'float', max_offset: 'float', min_offset: 'float', relative_direction: 'Optional[_math.Vector3]' = None):
         """
         Sets Params for scoring function.  Points are scored by measuring distance from line formed by initial point and angle, then normalized to [0,1] where distance < ideal_distance is scored as 1, ideal_distance < distance < max_distance is scored as 1->0, and distance >= max_distance is scored as 0.  ARGS: (Vector3)point1, (Vector3)point2, (float)ideal_distance, (float)max_distance
         """
@@ -53,90 +60,102 @@ class AngularInterval():
     The size of the angular interval is cached.
     """
 
-    def __init__(self, kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None, kwarg3: Any = None):
-        pass
+    def __init__(self, min_angle: 'float' = 0.0, max_angle: 'float' = 0.0, ideal_angle: 'Optional[float]' = None, weight: 'float' = 1.0):
+        """
+        AngularInterval(minAngle, maxAngle) -> a clockwise angular interval (circular arc) between min and max angles (measured in radians).
+        An interval must also have an ideal angle (and weight) which is
+        respected when intersecting two intervals.  The ideal angle is used to select
+        which segment is selected when and intersection of two concave intervals
+        results in disjoint regions.
+        
+        An angular interval is defined by two angles, a and b.  Because angles
+        are equivalent modulo 2 * Pi, we need to normalize the interval.  The
+        normalization rules are: a is in [0, 2 * Pi), and b is in [a, a + 2 * Pi].
+        
+        The size of the angular interval is cached.
+        """
 
     @property
-    def ALL(self):
+    def ALL(self) -> 'AngularInterval':
         """
         Angular Interval that allows all angles. [0,2PI).
         """
 
     @ALL.setter
-    def ALL(self, value):
+    def ALL(self, value: 'AngularInterval'):
         """
         Angular Interval that allows all angles. [0,2PI).
         """
 
     @property
-    def NONE(self):
+    def NONE(self) -> 'AngularInterval':
         """
         Angular Interval that allows no angles.
         """
 
     @NONE.setter
-    def NONE(self, value):
+    def NONE(self, value: 'AngularInterval'):
         """
         Angular Interval that allows no angles.
         """
 
-    def __bool__(self):
+    def __bool__(self) -> 'bool':
         """
         self != 0
         """
 
-    def __contains__(self):
+    def __contains__(self, angle: 'float') -> 'bool':
         """
         Return key in self.
         """
 
     @property
-    def a(self):
+    def a(self) -> 'float':
         """
         Minimum Angle
         """
 
     @a.setter
-    def a(self, value):
+    def a(self, value: 'float'):
         """
         Minimum Angle
         """
 
     @property
-    def angle(self):
+    def angle(self) -> 'float':
         """
         Angle
         """
 
     @angle.setter
-    def angle(self, value):
+    def angle(self, value: 'float'):
         """
         Angle
         """
 
     @property
-    def b(self):
+    def b(self) -> 'float':
         """
         Maximum Angle
         """
 
     @b.setter
-    def b(self, value):
+    def b(self, value: 'float'):
         """
         Maximum Angle
         """
 
-    def clamp(self, arg0):
+    def clamp(self, angle: 'float') -> 'float':
         """
         Clamp the given angle within this interval.  If the angle is contained within the interval, return the angle.  Otherwise, return the closest end point.
         """
 
-    def contains_angle(self, arg0):
+    def contains_angle(self, angle: 'float') -> 'bool':
         """
         returns True if the AngularInterval contains the specified angle.
         """
 
-    def get_distance(self, arg0):
+    def get_distance(self, angle: 'float') -> 'float':
         """
         Return the angular distance from this interval to the given angle.
         If angle is contained in this interval, distance is zero.  Otherwise,
@@ -144,57 +163,57 @@ class AngularInterval():
         """
 
     @property
-    def ideal(self):
+    def ideal(self) -> 'float':
         """
         Ideal Angle
         """
 
     @ideal.setter
-    def ideal(self, value):
+    def ideal(self, value: 'float'):
         """
         Ideal Angle
         """
 
-    def intersect(self, arg0):
+    def intersect(self, other: 'AngularInterval') -> 'AngularInterval':
         """
         Intersect two angular intervals.
         """
 
     @property
-    def is_none(self):
+    def is_none(self) -> 'bool':
         """
         Is the Interval None
         """
 
     @is_none.setter
-    def is_none(self, value):
+    def is_none(self, value: 'bool'):
         """
         Is the Interval None
         """
 
-    def set(self, kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None, kwarg3: Any = None):
+    def set(self, min_angle: 'float', max_angle: 'float'):
         """
         Sets min and max angle.
         """
 
-    def set_ideal_angle(self, kwarg0: Any = None, kwarg1: Any = None):
+    def set_ideal_angle(self, ideal_angle: 'float', weight: 'float' = 1.0):
         """
         Set the ideal angle (and optional weight) for this interval.
         """
 
-    def set_to_none(self, *args):
+    def set_to_none(self):
         """
         Sets to None.
         """
 
     @property
-    def weight(self):
+    def weight(self) -> 'float':
         """
         Weight
         """
 
     @weight.setter
-    def weight(self, value):
+    def weight(self, value: 'float'):
         """
         Weight
         """
@@ -205,29 +224,31 @@ class Circle():
     Circle(center, radius) -> A new circle.  'center' must be a Vector2
     """
 
-    def __init__(self, arg0, arg1):
-        pass
+    def __init__(self, center: '_math.Vector2', radius: 'float'):
+        """
+        Circle(center, radius) -> A new circle.  'center' must be a Vector2
+        """
 
     @property
-    def center(self):
+    def center(self) -> '_math.Vector2':
         """
         The center of the circle, as Vector2(x, z)
         """
 
     @center.setter
-    def center(self, value):
+    def center(self, value: '_math.Vector2'):
         """
         The center of the circle, as Vector2(x, z)
         """
 
     @property
-    def radius(self):
+    def radius(self) -> 'float':
         """
         The radius of the circle
         """
 
     @radius.setter
-    def radius(self, value):
+    def radius(self, value: 'float'):
         """
         The radius of the circle
         """
@@ -238,20 +259,22 @@ class CompoundPolygon():
     Array of Polygons.
     """
 
-    def __init__(self, *args):
-        pass
+    def __init__(self, polygons: 'Sequence[Polygon]' = None):
+        """
+        Array of Polygons.
+        """
 
-    def __bool__(self):
+    def __bool__(self) -> 'bool':
         """
         self != 0
         """
 
-    def __getitem__(self):
+    def __getitem__(self, key):
         """
         Return self[key].
         """
 
-    def __len__(self):
+    def __len__(self) -> 'int':
         """
         Return len(self).
         """
@@ -262,7 +285,7 @@ class CompoundPolygon():
         Return the area of all of the polygons in the compound polygon.
         """
 
-    def bounds(self):
+    def bounds(self) -> 'Tuple[_math.Vector3, _math.Vector3]':
         """
         CompoundPoly.bounds()
         Return the AABB (Vec3 min, Vec3 max)of all of the polygons in the compound polygon.
@@ -274,7 +297,7 @@ class CompoundPolygon():
         Return the centroid of all of the polygons in the compound polygon.
         """
 
-    def contains(self, arg0):
+    def contains(self, point: '_math.Vector3') -> 'bool':
         """
         CompoundPoly.contains()
         Return if the Compound Polygon contains the provided vertex.
@@ -308,13 +331,13 @@ class CompoundPolygon():
         Return true if we have at least one polygon and all polygons have at least one vertex.
         """
 
-    def intersect(self, CompoundPolyB) -> "CompoundPolygon":
+    def intersect(self, CompoundPolyB) -> 'CompoundPolygon':
         """
         CompoundPolyA.intersect(CompoundPolyB) -> CompoundPolygon
         Return a CompoundPolygon that's the intersection of CompoundPolyA and CompoundPolyB.
         """
 
-    def intersects(self, CompoundPolyB) -> "CompoundPolygon":
+    def intersects(self, CompoundPolyB) -> 'CompoundPolygon':
         """
         CompoundPolyA.intersects(CompoundPolyB) -> CompoundPolygon
         Return whether or not CompoundPolyA intersects CompoundPolyB.
@@ -326,7 +349,7 @@ class CompoundPolygon():
         Return the max radius of all of the polygons in the compound polygon.
         """
 
-    def union(self, CompoundPolyB) -> "CompoundPolygon":
+    def union(self, CompoundPolyB) -> 'CompoundPolygon':
         """
         CompoundPolyA.union(CompoundPolyB) -> CompoundPolygon
         Return a CompoundPolygon that's the union of CompoundPolyA and CompoundPolyB.
@@ -334,65 +357,57 @@ class CompoundPolygon():
         """
 
 
-OBJECT_QUAD_TREE_QUERY_FLAG_IGNORE_BOUNDS = 1
-OBJECT_QUAD_TREE_QUERY_FLAG_IGNORE_SURFACE = 2
-OBJECT_QUAD_TREE_QUERY_FLAG_IGNORE_SURFACE_TYPE = 4
-OBJECT_QUAD_TREE_QUERY_FLAG_MUST_NOT_CONTAIN_QUERY_BOUNDS = 16
-OBJECT_QUAD_TREE_QUERY_FLAG_ONLY_FULLY_CONTAINED = 8
-OBJECT_QUAD_TREE_QUERY_FLAG_STOP_AT_FIRST_RESULT = 32
-
-
 class Polygon():
     """
     Polygon(vertices) -> A new polygon.  Vertices must be a sequence of Vector3.
     """
 
-    def __init__(self, vertices: Sequence[Vector3]):
+    def __init__(self, vertices: 'Sequence[_math.Vector3]'):
         """
-        Annotations Contributors: TURBODRIVER
+        Polygon(vertices) -> A new polygon.  Vertices must be a sequence of Vector3.
         """
 
-    def __bool__(self):
+    def __bool__(self) -> 'bool':
         """
         self != 0
         """
 
-    def __getitem__(self):
+    def __getitem__(self, key):
         """
         Return self[key].
         """
 
-    def __len__(self):
+    def __len__(self) -> 'int':
         """
         Return len(self).
         """
 
-    def add(self, arg0):
+    def add(self, p: 'Union[_math.Vector2, _math.Vector3]'):
         """
         p.add(Vector2 or Vector3 p) -> None
         Adds the point p at end of the polygon.  Note that this is more efficient than calling insert as the polygon is internally stored as an array.
         """
 
-    def area(self) -> "float":
+    def area(self) -> 'float':
         """
         p.area() -> float
         The area of this polygon projected onto the (x,z) plane.
         """
 
-    def average_radius(self) -> "float":
+    def average_radius(self) -> 'float':
         """
         p.average_radius() -> float
         Returns the average of radius and min_radius.
         """
 
-    def bounds(self):
+    def bounds(self) -> 'Tuple[_math.Vector3, _math.Vector3]':
         """
         p.bounds() -> (Vector3 min, Vector3 max)
         Returns the min and max points defining the AABB for this polygon.
         """
 
     @property
-    def ccw(self):
+    def ccw(self) -> 'bool':
         """
         True if polygon is counterclockwise.
         """
@@ -403,26 +418,26 @@ class Polygon():
         True if polygon is counterclockwise.
         """
 
-    def centroid(self) -> "Vector3":
+    def centroid(self) -> 'Vector3':
         """
         p.centroid() -> Vector3
         Returns the centroid of the polygon.
         """
 
-    def compare_vectors_ccw(self, kwarg0: Any = None, kwarg1: Any = None):
+    def compare_vectors_ccw(self, v1: '_math.Vector3', v2: '_math.Vector3') -> 'int':
         """
         Polygon.compare_vectors_ccw(a:Vector3, b:Vector3) -> int
         Return 1 if a > b, -1 if a < b and 0 if a == b
         """
 
-    def contains(self, arg0):
+    def contains(self, point: '_math.Vector3') -> 'bool':
         """
         p.contains(Polygon, Vector2, or Vector3) -> bool
         Whether the polygon contains the specified polygon or point.
         """
 
     @property
-    def convex(self):
+    def convex(self) -> 'bool':
         """
         True if polygon is convex.  Note that 1 and 2 point polygons are considered convex.
         """
@@ -434,7 +449,7 @@ class Polygon():
         """
 
     @property
-    def degenerate(self):
+    def degenerate(self) -> 'bool':
         """
         True if polygon is degenerate (i.e. has overlapping and/or collinear vertices).
         """
@@ -451,7 +466,7 @@ class Polygon():
         Checks if the Polygon is CCW and if not (and it is valid), reverses the vertices so that it is CCW.
         """
 
-    def get_closest_edge_to_point(self, arg0):
+    def get_closest_edge_to_point(self, point: '_math.Vector3') -> 'Tuple[_math.Vector3, _math.Vector3]':
         """
         p.get_closest_edge_to_point(Vector2/Vector3 p) -> (int, float, Vector3)
         Returns a tuple containing the index i of the edge (i,i+1) that is the closest edge to p,
@@ -459,7 +474,7 @@ class Polygon():
         If the Polygon is empty, returns None.
         """
 
-    def get_closest_point_in_polygon_to_point(self, kwarg0: Any = None, kwarg1: Any = None):
+    def get_closest_point_in_polygon_to_point(self, point: '_math.Vector3', test_interior: 'bool' = True) -> '_math.Vector3':
         """
         p.get_closest_point_in_polygon_to_point(Vector2/Vector3 p, float minDist = 0) -> (int, Vector3)
         Returns a tuple containing the index i of the edge (i,i+1) that is the closest edge to p
@@ -468,7 +483,7 @@ class Polygon():
         still inside the polygon, returns None.
         """
 
-    def get_convex_hull(self) -> "Polygon":
+    def get_convex_hull(self) -> 'Polygon':
         """
         p.get_convex_hull() -> Polygon
         Returns a Polygon that is the Convex Hull of the current Polygon.
@@ -476,7 +491,7 @@ class Polygon():
         Returns None if the Polygon is invalid.
         """
 
-    def get_distance_to_circle(self, arg0):
+    def get_distance_to_circle(self, center: '_math.Vector3', radius: 'float') -> 'float':
         """
         p.get_distance_to_circle(Circle c) -> (float dist, bool intersects, int edgeIdx, Vector3 closestPoint)
         Returns a tuple containing:
@@ -487,7 +502,7 @@ class Polygon():
         Returns None if the polygon or Circle are empty or otherwise invalid.
         """
 
-    def get_distance_to_point(self, arg0):
+    def get_distance_to_point(self, point: '_math.Vector3') -> 'float':
         """
         p.get_distance_to_point(Vector2/Vector3 p) -> (float dist, bool intersects, int edgeIdx, Vector3 closestPoint)
         Returns a tuple containing:
@@ -498,7 +513,7 @@ class Polygon():
         Returns None if the polygon is empty or otherwise invalid.
         """
 
-    def get_distance_to_polygon(self, arg0):
+    def get_distance_to_polygon(self, other: 'Polygon') -> 'float':
         """
         p.get_distance_to_polygon(Polygon c) -> (float dist, bool intersects, int edgeIdx, Vector3 closestPoint)
         Returns a tuple containing:
@@ -509,7 +524,7 @@ class Polygon():
         Returns None if either polygon is empty or otherwise invalid.
         """
 
-    def get_distance_to_rect(self, arg0):
+    def get_distance_to_rect(self, rect: 'Rect') -> 'float':
         """
         p.get_distance_to_rect(Rect r) -> (float dist, bool intersects, int edgeIdx, Vector3 closestPoint)
         Returns a tuple containing:
@@ -520,7 +535,7 @@ class Polygon():
         Returns None if the polygon or Rect are empty or otherwise invalid.
         """
 
-    def get_distance_to_segment(self, arg0, arg1):
+    def get_distance_to_segment(self, start: '_math.Vector3', end: '_math.Vector3') -> 'float':
         """
         p.get_distance_to_segment(Vector2/Vector3 segStart, Vector2/Vector3 segEnd) -> (float dist, bool intersects, int edgeIdx, Vector3 closestPoint)
         Returns a tuple containing:
@@ -531,25 +546,25 @@ class Polygon():
         Returns None if the polygon is empty or otherwise invalid.
         """
 
-    def get_error_string(self) -> "string":
+    def get_error_string(self):
         """
         p.get_error_string() -> string
         If the polygon is not valid, this will return a string describing the errors.   If the polygon is valid, this returns an empty string.
         """
 
-    def get_normals(self):
+    def get_normals(self) -> 'Optional[Tuple[_math.Vector3, ...]]':
         """
         p.get_normals() -> (Vector3, Vector3, ..)
         Returns a tuple of Vector3 objects, each of which is a normal of the corresponding vertex in the Polygon.
         Returns None if the Polygon is invalid.
         """
 
-    def get_octant_and_slope(self, v: Vector3) -> "Tuple[octant:int, slope:float]":
+    def get_octant_and_slope(self, v: '_math.Vector3') -> 'Tuple[int, float]':
         """
         Polygon.get_octant_and_slope(v:Vector3) -> (octant:int, slope:float)
         """
 
-    def get_vertex_farthest_in_direction(self, arg0):
+    def get_vertex_farthest_in_direction(self, direction: '_math.Vector3') -> 'Optional[int]':
         """
         p.get_vertex_farthest_in_direction(Vector2/Vector3 dirNormalized) -> int
         Returns index of the vertex in the polygon that is the farthest along in the specified direction.
@@ -557,48 +572,48 @@ class Polygon():
         """
 
     @property
-    def has_collinear_vertices(self):
+    def has_collinear_vertices(self) -> 'bool':
         """
         True if polygon has any collinear vertices (i.e. any 3 coincident vertices that form a straight line).
         """
 
     @has_collinear_vertices.setter
-    def has_collinear_vertices(self, value):
+    def has_collinear_vertices(self, value: 'bool'):
         """
         True if polygon has any collinear vertices (i.e. any 3 coincident vertices that form a straight line).
         """
 
     @property
-    def has_duplicated_consecutive_vertices(self):
+    def has_duplicated_consecutive_vertices(self) -> 'bool':
         """
         True if polygon has any coincident vertices that overlap or are "too close" together (currently 0.0001).
         """
 
     @has_duplicated_consecutive_vertices.setter
-    def has_duplicated_consecutive_vertices(self, value):
+    def has_duplicated_consecutive_vertices(self, value: 'bool'):
         """
         True if polygon has any coincident vertices that overlap or are "too close" together (currently 0.0001).
         """
 
     @property
-    def has_enough_vertices(self):
+    def has_enough_vertices(self) -> 'bool':
         """
         True if polygon has 1 or more vertex.
         """
 
     @has_enough_vertices.setter
-    def has_enough_vertices(self, value):
+    def has_enough_vertices(self, value: 'bool'):
         """
         True if polygon has 1 or more vertex.
         """
 
-    def index_of(self, arg0):
+    def index_of(self, point: '_math.Vector3') -> 'int':
         """
         p.index_of(Vector2 or Vector3 p) -> int
         Returns the first index of the polygon that is equal to the specified point p.   If no match is found, returns None.
         """
 
-    def inflate(self, floatamt):
+    def inflate(self, amt: 'float'):
         """
         p.inflate(float amt) -> None
         Inflates (or deflates if amt is negative) the Polygon by the specified amount.  Currently only works on Convex Polygons.
@@ -606,49 +621,49 @@ class Polygon():
         the polygon has fewer than 3 points, or some other internal error occurs.
         """
 
-    def insert(self, arg0, arg1):
+    def insert(self, index: 'int', point: '_math.Vector3'):
         """
         p.insert(i, Vector2 or Vector3 p) -> None
         Inserts the point p at index i.
         """
 
-    def intersect(self, other) -> "Polygon":
+    def intersect(self, other: 'Union[Polygon, CompoundPolygon, Rect]') -> 'Polygon':
         """
         p.intersect(other) -> Polygon
         A new polygon that is the intersect of p and other.   TODO: return a tuple of polygons instead of just 1 since intersection of concave polygon can give more than 1 result.
         """
 
-    def intersects(self, arg0):
+    def intersects(self, other: 'Polygon') -> 'bool':
         """
         p.intersects(Polygon, Rect, or Circle) -> bool
         Returns true if the polygon intersects the specified geometry object.
         """
 
-    def min_radius(self) -> "float":
+    def min_radius(self) -> 'float':
         """
         p.min_radius() -> float
         Returns the distance from the centroid to the nearest point on any edge.
         """
 
-    def move_to(self, Vector3):
+    def move_to(self, position: '_math.Vector3'):
         """
         p.move_to(Vector3) -> None
         Translate the polygon such that the centroid is in the specified position.
         """
 
-    def normalize(self) -> "Polygon":
+    def normalize(self) -> 'Polygon':
         """
         p.normalize() -> Polygon
         A new polygon with coordinate and colinear vertices removed.
         """
 
-    def perimeter(self) -> "float":
+    def perimeter(self) -> 'float':
         """
         p.perimeter() -> float
         Returns sum of the length of all sides of this polygon.
         """
 
-    def pick_edge(self, arg0, arg1):
+    def pick_edge(self, point: '_math.Vector3', distance_threshold: 'float') -> 'Optional[Tuple[_math.Vector3, _math.Vector3]]':
         """
         p.pick_edge(Vector2/Vector3 p, float epsilonSquared) -> (int, float)
         Returns a tuple of the index i of the edge (i,i+1) that is the closest edge to p and less than
@@ -659,7 +674,7 @@ class Polygon():
         of 0.250001 would work.   Remember that the epsilon is used against the SQUARED distance estimates.
         """
 
-    def pick_vertex(self, kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None):
+    def pick_vertex(self, point: '_math.Vector3', distance_threshold: 'float', flags: 'int' = 0) -> 'Optional[_math.Vector3]':
         """
         p.pick_vertex(Vector2/Vector3 p, float epsilonSquared, bool bReturnFirstFound = False) -> int
         Returns the index of the vertex which is closest to p and within epsilonSquared distance-squared
@@ -669,104 +684,104 @@ class Polygon():
         .
         """
 
-    def pop_back(self) -> "Vector3":
+    def pop_back(self) -> 'Vector3':
         """
         p.pop_back() -> Vector3
         Removes the last vertex of the Polygon (and returns it).  Note that this is more efficient than calling remove as the polygon is internally stored as an array.
         """
 
-    def radius(self) -> "float":
+    def radius(self) -> 'float':
         """
         p.radius() -> float
         Returns the distance from the centroid to the farthest vertex from the centroid.
         """
 
-    def remove(self, i, n=1):
+    def remove(self, index: 'int', count: 'int' = 1):
         """
         p.remove(i, n = 1) -> None
         Removes n vertices (default = 1) starting at index i.
         """
 
-    def rotate(self, kwarg0: Any = None, kwarg1: Any = None):
+    def rotate(self, angle: 'float', center: 'Optional[_math.Vector3]' = None) -> 'Polygon':
         """
         p.rotate(float r, Vector3 ctr = centroid) -> None
         Rotates the polygon around the specified ctr point (or the centroid if no point is provided) by r radians.
         """
 
-    def sample(self) -> "Vector3":
+    def sample(self) -> 'Vector3':
         """
         p.sample() -> Vector3
         Returns a random point guaranteed to be within the Polygon.
         If the Polygon is invalid, returns None.
         """
 
-    def scale(self, floats):
+    def scale(self, s: 'float'):
         """
         p.scale(float s) -> None
         Scales Polygon by specified amount.  Note that this can cause problems for concave polygons and could make them complex.  Convex polygons should work if the scale doesn't go too low.
         """
 
     @property
-    def simple(self):
+    def simple(self) -> 'bool':
         """
         True if polygon is simple (i.e. is not self-intersecting).  Note that having duplicate vertices will fail this condition as well.
         """
 
     @simple.setter
-    def simple(self, value):
+    def simple(self, value: 'bool'):
         """
         True if polygon is simple (i.e. is not self-intersecting).  Note that having duplicate vertices will fail this condition as well.
         """
 
-    def split_complex(self):
+    def split_complex(self) -> 'Tuple[Polygon, ...]':
         """
         p.split_complex() -> (Polygon1, Polygon2, ...)
         Returns a tuple of simple polygons formed by splitting a complex polygon.
         """
 
-    def subtract(self, arg0):
+    def subtract(self, other: 'Polygon') -> 'CompoundPolygon':
         """
         p.subtract(other) -> (Polygon1, Polygon2, ...)
         Returns a tuple of polygons formed by subtracting other from this polygon.
         """
 
     @property
-    def too_small(self):
+    def too_small(self) -> 'bool':
         """
         True if polygon's |area| is less than GEO_FACE_MIN_AREA (currently 0.000000433012701892219).
         """
 
     @too_small.setter
-    def too_small(self, value):
+    def too_small(self, value: 'bool'):
         """
         True if polygon's |area| is less than GEO_FACE_MIN_AREA (currently 0.000000433012701892219).
         """
 
     @property
-    def too_thin(self):
+    def too_thin(self) -> 'bool':
         """
         True if polygon contains any regions that are too thin (i.e. if the cross product of the normals of any 2 coincident vertices is less than 2 degrees (~0.0349 radians)
         """
 
     @too_thin.setter
-    def too_thin(self, value):
+    def too_thin(self, value: 'bool'):
         """
         True if polygon contains any regions that are too thin (i.e. if the cross product of the normals of any 2 coincident vertices is less than 2 degrees (~0.0349 radians)
         """
 
-    def translate(self, Vector3):
+    def translate(self, offset: '_math.Vector3'):
         """
         p.translate(Vector3) -> None
         Translate the polygon by the specified amount.
         """
 
-    def union(self, arg0):
+    def union(self, other: 'Polygon') -> 'CompoundPolygon':
         """
         p.union(other) -> (Polygon1, Polygon2, ...)
         Returns a tuple of polygons formed by taking the union of the two polygons.
         """
 
-    def valid(self, kwarg0: Any = None) -> "bool":
+    def valid(self, allow_empty: 'bool' = False) -> 'bool':
         """
         p.too_small(ForceCheck = False)() -> bool
         Returns true if the polygon has 3 or more vertices, is not degenerate, is simple, and the area is not too small to form a valid polygon.
@@ -778,22 +793,24 @@ class QuadTree():
     QuadTree() -> A QuadTree used for efficient spatial queries in 2D
     """
 
-    def __init__(self, *args):
-        pass
+    def __init__(self):
+        """
+        QuadTree() -> A QuadTree used for efficient spatial queries in 2D
+        """
 
-    def insert(self, object, bounds):
+    def insert(self, object: 'Any', bounds: 'Tuple[_math.Vector3, _math.Vector3]'):
         """
         qt.insert(object, bounds)
         Inserts 'object' into the QuadTree with the specified bounds, or modifies the bounds for an existing object
         """
 
-    def query(self, arg0):
+    def query(self, bounds: 'Tuple[_math.Vector3, _math.Vector3]') -> 'List[Any]':
         """
         qt.query(bounds) -> [object, ...]
         A list of objects which were found within 'bounds'
         """
 
-    def remove(self, object):
+    def remove(self, object: 'Any') -> 'bool':
         """
         qt.remove(object)
         Removes 'object' from the QuadTree
@@ -807,29 +824,33 @@ class Rect():
     b - the 'maximum' corner of the rectangle
     """
 
-    def __init__(self, arg0, arg1):
-        pass
+    def __init__(self, a: '_math.Vector2', b: '_math.Vector2'):
+        """
+        Rect(a, b) -> A new Rect.  a and b must be Vector2s.
+        a - the 'minimum' corner of the rectangle
+        b - the 'maximum' corner of the rectangle
+        """
 
     @property
-    def a(self):
+    def a(self) -> '_math.Vector2':
         """
         The 'minimum' corner of the rectangle, as Vector2(min_x, min_z)
         """
 
     @a.setter
-    def a(self, value):
+    def a(self, value: '_math.Vector2'):
         """
         The 'minimum' corner of the rectangle, as Vector2(min_x, min_z)
         """
 
     @property
-    def b(self):
+    def b(self) -> '_math.Vector2':
         """
         The 'maximum' corner of the rectangle, as Vector2(max_x, max_z)
         """
 
     @b.setter
-    def b(self, value):
+    def b(self, value: '_math.Vector2'):
         """
         The 'maximum' corner of the rectangle, as Vector2(max_x, max_z)
         """
@@ -840,51 +861,53 @@ class RelativeFacingRange():
     An orientation restriction facing relative to a fixed point does not exceed half the given angular threshold in either direction (in radians).  ARGS: (Vector3)point, (float)angle.
     """
 
-    def __init__(self, kwarg0: Any = None, kwarg1: Any = None):
-        pass
+    def __init__(self, point: '_math.Vector3', angle: 'float'):
+        """
+        An orientation restriction facing relative to a fixed point does not exceed half the given angular threshold in either direction (in radians).  ARGS: (Vector3)point, (float)angle.
+        """
 
     @property
-    def angle(self):
+    def angle(self) -> 'float':
         """
         Angle.
         """
 
     @angle.setter
-    def angle(self, value):
+    def angle(self, value: 'float'):
         """
         Angle.
         """
 
     @property
-    def invert(self):
+    def invert(self) -> 'bool':
         """
         Invert.
         """
 
     @invert.setter
-    def invert(self, value):
+    def invert(self, value: 'bool'):
         """
         Invert.
         """
 
-    def range(self, Vector3):
+    def range(self, point: '_math.Vector3') -> 'float':
         """
         Gets the interval at the specified point.  ARGS: (Vector3)point
         """
 
-    def set_params(self, Vector3):
+    def set_params(self, point1: '_math.Vector3', point2: '_math.Vector3', ideal_distance: 'float', max_distance: 'float'):
         """
         Sets Params for scoring function.  Points are scored by measuring distance from line formed by initial point and angle, then normalized to [0,1] where distance < ideal_distance is scored as 1, ideal_distance < distance < max_distance is scored as 1->0, and distance >= max_distance is scored as 0.  ARGS: (Vector3)point1, (Vector3)point2, (float)ideal_distance, (float)max_distance
         """
 
     @property
-    def target(self):
+    def target(self) -> '_math.Vector3':
         """
         Target Point.
         """
 
     @target.setter
-    def target(self, value):
+    def target(self, value: '_math.Vector3'):
         """
         Target Point.
         """
@@ -896,57 +919,60 @@ class RelativeFacingWithCircle():
     ARGS: (Vector3)point, (float)angle (float)radius.
     """
 
-    def __init__(self):
-        pass
+    def __init__(self, point: '_math.Vector3', angle: 'float', radius: 'float'):
+        """
+        A restriction on facing a fixed point, with arbitrary facing allowed within a circle of given radius.
+        ARGS: (Vector3)point, (float)angle (float)radius.
+        """
 
     @property
-    def angle(self):
+    def angle(self) -> 'float':
         """
         Angle.
         """
 
     @angle.setter
-    def angle(self, value):
+    def angle(self, value: 'float'):
         """
         Angle.
         """
 
     @property
-    def radius(self):
+    def radius(self) -> 'float':
         """
         Target Point.
         """
 
     @radius.setter
-    def radius(self, value):
+    def radius(self, value: 'float'):
         """
         Target Point.
         """
 
-    def range(self, Vector3):
+    def range(self, point: '_math.Vector3') -> 'float':
         """
         Gets the interval at the specified point.  ARGS: (Vector3)point
         """
 
-    def set_params(self, Vector3):
+    def set_params(self, point1: '_math.Vector3', point2: '_math.Vector3', ideal_distance: 'float', max_distance: 'float'):
         """
         Sets Params for scoring function.  Points are scored by measuring distance from line formed by initial point and angle, then normalized to [0,1] where distance < ideal_distance is scored as 1, ideal_distance < distance < max_distance is scored as 1->0, and distance >= max_distance is scored as 0.  ARGS: (Vector3)point1, (Vector3)point2, (float)ideal_distance, (float)max_distance
         """
 
     @property
-    def target(self):
+    def target(self) -> '_math.Vector3':
         """
         Target Point.
         """
 
     @target.setter
-    def target(self, value):
+    def target(self, value: '_math.Vector3'):
         """
         Target Point.
         """
 
 
-def angular_weighted_average(kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None, kwarg3: Any = None):
+def angular_weighted_average(angles: 'Sequence[float]', weights: 'Sequence[float]') -> 'float':
     """
     Compute the weighted average of angles a and b.
     The return value is not normalized in the range [0, 2 * Pi).
@@ -956,20 +982,20 @@ def angular_weighted_average(kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any
     """
 
 
-def find_intersection_points(arg0, arg1, arg2, arg3, arg4, arg5):
+def find_intersection_points(line_start: '_math.Vector3', line_end: '_math.Vector3', ray_origins: 'Sequence[_math.Vector3]', ray_directions: 'Sequence[_math.Vector3]', max_distance: 'float' = 0.0, flags: 'int' = 0) -> 'List[_math.Vector3]':
     """
     Given a line segment, find all rays that intersect with it and return the points of intersection
     """
 
 
-def generate_circle_constraint(num_sides: int, center: Vector3, radius: float) -> "Polygon":
+def generate_circle_constraint(num_sides: 'int', center: 'Vector3', radius: 'float') -> 'Polygon':
     """
     (num_sides: int, center: Vector3, radius: float) -> Polygon
     Generate a Circular Polygon used by the Python constraint system.
     """
 
 
-def generate_cone_constraint(arg0, arg1, arg2, arg3, arg4, arg5, arg6) -> "Polygon":
+def generate_cone_constraint(pos: '_math.Vector3', facing: '_math.Vector3', angle: 'float', min_dist: 'float', max_dist: 'float') -> 'Polygon':
     """
     (target_pos: Vector3, target_facing: Vector3, min_dist: float
     , max_dist: float, angle: float, offset: float) -> Polygon
@@ -977,7 +1003,15 @@ def generate_cone_constraint(arg0, arg1, arg2, arg3, arg4, arg5, arg6) -> "Polyg
     """
 
 
-def interval_from_facing_angle(kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None):
+def interval_from_facing_angle(facing_angle: 'float', ideal_angle: 'float', max_offset: 'float') -> 'AngularInterval':
     """
     Return an angular interval constructed from a given facing and angular width.
     """
+
+
+OBJECT_QUAD_TREE_QUERY_FLAG_IGNORE_BOUNDS = 1
+OBJECT_QUAD_TREE_QUERY_FLAG_IGNORE_SURFACE = 2
+OBJECT_QUAD_TREE_QUERY_FLAG_IGNORE_SURFACE_TYPE = 4
+OBJECT_QUAD_TREE_QUERY_FLAG_MUST_NOT_CONTAIN_QUERY_BOUNDS = 16
+OBJECT_QUAD_TREE_QUERY_FLAG_ONLY_FULLY_CONTAINED = 8
+OBJECT_QUAD_TREE_QUERY_FLAG_STOP_AT_FIRST_RESULT = 32

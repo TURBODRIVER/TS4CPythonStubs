@@ -1,3 +1,5 @@
+# Annotations Created by TURBODRIVER
+
 """
 File Monitoring System
 
@@ -22,13 +24,6 @@ The following actions are available:
 
 from typing import *
 
-ACTION_ADDED = 1
-ACTION_MODIFIED = 3
-ACTION_REMOVED = 2
-ACTION_RENAMED_NEW = 5
-ACTION_RENAMED_OLD = 4
-
-
 class DirectoryMonitor():
     """
     DirectoryMonitor(path, filter=CT_MTIME, subdirs=True)
@@ -38,22 +33,28 @@ class DirectoryMonitor():
     a list of changed files.
     """
 
-    def __init__(self, kwarg0: Any = None, kwarg1: Any = None, kwarg2: Any = None):
-        pass
+    def __init__(self, path: 'str', filter: 'int' = 0, subdirs: 'bool' = True):
+        """
+        DirectoryMonitor(path, filter=CT_MTIME, subdirs=True)
+        
+        A directory monitor is capable of watching a directory (or directory
+        hierarchy) for file system changes.  The user periodically polls for
+        a list of changed files.
+        """
 
     @property
-    def path(self):
+    def path(self) -> 'str':
         """
         The monitored directory
         """
 
     @path.setter
-    def path(self, value):
+    def path(self, value: 'str'):
         """
         The monitored directory
         """
 
-    def poll(self) -> "list":
+    def poll(self) -> 'Optional[List[Tuple[str, int]]]':
         """
         poll() -> list
         
@@ -63,11 +64,16 @@ class DirectoryMonitor():
         """
 
 
+ACTION_ADDED = 256
+ACTION_MODIFIED = 1024
+ACTION_REMOVED = 512
+ACTION_RENAMED_NEW = 4096
+ACTION_RENAMED_OLD = 2048
 FILTER_ATTRIBS = 4
 FILTER_CREATION = 64
 FILTER_DIRNAME = 2
 FILTER_FILENAME = 1
 FILTER_READS = 32
-FILTER_SECURITY = 256
+FILTER_SECURITY = 128
 FILTER_SIZE = 8
 FILTER_WRITES = 16

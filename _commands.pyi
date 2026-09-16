@@ -1,9 +1,12 @@
+# Annotations Created by TURBODRIVER
+
 """
 Command System
 """
 
+from typing import *
 
-def automation_output(s):
+def automation_output(s: 'str', session_id: 'int' = 0):
     """
     automation_output(s)
     
@@ -11,7 +14,7 @@ def automation_output(s):
     """
 
 
-def client_cheat(s):
+def client_cheat(s: 'str', session_id: 'int' = 0):
     """
     client_cheat(s)
     
@@ -19,7 +22,7 @@ def client_cheat(s):
     """
 
 
-def describe(filter) -> "tuple":
+def describe(filter: 'str' = "") -> 'Tuple[Tuple[str, str, str], ...]':
     """
     describe(filter) -> tuple
     
@@ -29,7 +32,7 @@ def describe(filter) -> "tuple":
     """
 
 
-def execute(s) -> "result":
+def execute(s: 'str', session_id: 'int' = 0) -> 'bool':
     """
     execute(s) -> result
     
@@ -37,7 +40,7 @@ def execute(s) -> "result":
     """
 
 
-def output(s):
+def output(s: 'str', session_id: 'int' = 0):
     """
     output(s)
     
@@ -45,7 +48,7 @@ def output(s):
     """
 
 
-def register(name, description, usage, callable) -> "bool":
+def register(name: 'str', description: 'str', usage: 'str', callback: 'Callable[..., None]') -> 'bool':
     """
     register(name, description, usage, callable) -> bool
     
@@ -53,7 +56,7 @@ def register(name, description, usage, callable) -> "bool":
     """
 
 
-def unregister(name):
+def unregister(name: 'str') -> 'bool':
     """
     unregister(name)
     

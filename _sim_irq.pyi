@@ -1,9 +1,10 @@
+# Annotations Created by TURBODRIVER
+
 """
 Sim Interrupt Request Interface
 """
 
-
-def handle_sim_irq(zoneid) -> "int":
+def handle_sim_irq(zone_id: 'int') -> 'int':
     """
     handle_sim_irq(zoneid) -> int
     

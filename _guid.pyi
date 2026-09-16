@@ -1,9 +1,10 @@
+# Annotations Created by TURBODRIVER
+
 """
 S4GUID Interface
 """
 
-
-def generate_s4guid(*args) -> "int":
+def generate_s4guid() -> 'int':
     """
     generate_s4guid() -> int
     

@@ -1,7 +1,8 @@
+# Annotations Created by TURBODRIVER
+
 """
 Area Instance Operations Interface
 """
-
 
 def accept_invitation(invitationId, accepterId):
     """
@@ -19,7 +20,7 @@ def cancel_invitation(invitationId, accepterId):
     """
 
 
-def load_gsi(arg0) -> "bytes":
+def load_gsi(zone_id: 'int') -> 'bytes':
     """
     load_gsi() -> bytes
     
@@ -107,7 +108,7 @@ def send_relationship_handshake(inviterSessionId, accepterNucleusId, inviterSimI
     """
 
 
-def trigger_assert(*args):
+def trigger_assert(msg: 'str' = ""):
     """
     trigger_assert()
     

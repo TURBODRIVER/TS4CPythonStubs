@@ -1,22 +1,12 @@
+# Annotations Created by TURBODRIVER
+
 """
 Tracing and Logging Interface
 """
 
-LEVEL_DEBUG = 25
-LEVEL_ERROR = 150
-LEVEL_FATAL = 200
-LEVEL_INFO = 50
-LEVEL_UNDEFINED = 0
-LEVEL_WARN = 100
-RESULT_BREAK = 1
-RESULT_DISABLE = 2
-RESULT_NONE = 0
-TYPE_ASSERT = 0
-TYPE_FAIL = 3
-TYPE_LOG = 4
-TYPE_TRACE = 2
-TYPE_VERIFY = 1
+from typing import *
 
+import types
 
 def config(path, reporter):
     """
@@ -28,7 +18,7 @@ def config(path, reporter):
     """
 
 
-def log_exception(trace_type, message, group, level, zoneId, frame) -> "result":
+def log_exception(trace_type: 'str', message: 'str', group: 'str', level: 'int', zone_id: 'int', frame: 'Optional[types.FrameType]' = None) -> 'int':
     """
     trace_log_exception(trace_type, message, group, level, zoneId, frame) -> result
     
@@ -39,7 +29,7 @@ def log_exception(trace_type, message, group, level, zoneId, frame) -> "result":
     """
 
 
-def prod_trace(type, message, group, level, frame) -> "result":
+def prod_trace(trace_type: 'int', message: 'str', group: 'str', level: 'int', frame: 'Optional[types.FrameType]' = None) -> 'int':
     """
     prod_trace(type, message, group, level, frame) -> result
     
@@ -77,7 +67,7 @@ def set_level(level, reporter=None, group=None):
     """
 
 
-def should_trace(trace_type, group, level) -> "result":
+def should_trace(trace_type: 'int', group: 'str', level: 'int') -> 'int':
     """
     should_trace(trace_type, group, level) -> result
     
@@ -86,7 +76,7 @@ def should_trace(trace_type, group, level) -> "result":
     """
 
 
-def show_sim_error(message, exc_callstack, simId, objIdList) -> "result":
+def show_sim_error(message: 'str', exc_callstack: 'str', sim_id: 'int', obj_id_list: 'Sequence[int]') -> 'int':
     """
     show_sim_error(message, exc_callstack, simId, objIdList) -> result
     
@@ -94,7 +84,7 @@ def show_sim_error(message, exc_callstack, simId, objIdList) -> "result":
     """
 
 
-def trace(trace_type, message, group, level, zoneId, frame) -> "result":
+def trace(trace_type: 'int', message: 'str', group: 'str', level: 'int', zone_id: 'int', frame: 'Optional[types.FrameType]' = None) -> 'int':
     """
     trace(trace_type, message, group, level, zoneId, frame) -> result
     
@@ -103,3 +93,19 @@ def trace(trace_type, message, group, level, zoneId, frame) -> "result":
     
     If a frame object isn't specified, the current stack frame is used.
     """
+
+
+LEVEL_DEBUG = 25
+LEVEL_ERROR = 150
+LEVEL_FATAL = 200
+LEVEL_INFO = 50
+LEVEL_UNDEFINED = 0
+LEVEL_WARN = 100
+RESULT_BREAK = 1
+RESULT_DISABLE = 2
+RESULT_NONE = 0
+TYPE_ASSERT = 0
+TYPE_FAIL = 3
+TYPE_LOG = 4
+TYPE_TRACE = 2
+TYPE_VERIFY = 1

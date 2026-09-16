@@ -1,7 +1,10 @@
+# Annotations Created by TURBODRIVER
+
 """
 Windows Performance Counter Module
 """
 
+from typing import *
 
 def add_counter(name, value):
     """
@@ -11,7 +14,7 @@ def add_counter(name, value):
     """
 
 
-def rename(old, new):
+def rename(old: 'str', new: 'str') -> 'bool':
     """
     perf_rename(old, new)
     

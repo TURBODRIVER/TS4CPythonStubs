@@ -1,11 +1,22 @@
+# Annotations Created by TURBODRIVER
+
 """
 Low-level Python utility functions.
 """
 
 from typing import *
 
+class tupledescriptor():
+    def __init__(self, index: 'int'):
+        pass
 
-def change_gc_policy(arg0):
+    def __get__(self, instance: 'Optional[Any]', owner: 'Optional[type]' = None) -> 'Any':
+        """
+        Return an attribute of instance, which is of type owner.
+        """
+
+
+def change_gc_policy(policy: 'int'):
     """
     change_gc_policy_doc() -> None
     
@@ -28,19 +39,9 @@ def set_function_closure(function, closure, remaps):
     """
 
 
-def try_highwater_gc() -> "bool":
+def try_highwater_gc() -> 'bool':
     """
     try_highwater_gc() -> bool
     
     If we've reached the highwater low trigger, this will run a level 2 GC.Return True if we did run GC. Return False if we did not.This should only be called at an opportune moment (i.e. during a modal dialog,while already at a loading screen, etc.)
     """
-
-
-class tupledescriptor():
-    def __init__(self, arg0):
-        pass
-
-    def __get__(self, kwarg0: Any = None, kwarg1: Any = None):
-        """
-        Return an attribute of instance, which is of type owner.
-        """
