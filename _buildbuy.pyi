@@ -112,7 +112,7 @@ def get_active_lot_decoration(zone_id: 'int', holiday_id: 'int', trim_type: 'int
     """
 
 
-def get_all_block_polygons(zone_id: 'int', plex_id: 'int') -> 'Dict[int, Tuple[List[List[_math.Vector3]], int]]':
+def get_all_block_polygons(zone_id: 'int', plex_id: 'int') -> 'Dict[int, Tuple[_geometry.CompoundPolygon, int]]':
     """
     Return block polygon information for the specified zone -> dict key=block_id, value=compound polygon, level
     """
@@ -316,7 +316,7 @@ def get_object_slotset(definition_id: 'int') -> '_resourceman.Key':
     """
 
 
-def get_plex_outline(zone_id: 'int', plex_id: 'int', level: 'int') -> 'List[List[List[_math.Vector3]]]':
+def get_plex_outline(zone_id: 'int', plex_id: 'int', level: 'int') -> 'List[_geometry.CompoundPolygon]':
     """
     Returns the outline of a plex on a given level (zone_id, lot_level) -> list of blocks, each block is a list of polygons where the first is the outermost, each polygon is a list of points assumed to be a loop
     """
@@ -328,7 +328,7 @@ def get_plex_tile_count(zone_id: 'int', plex_id: 'int', house_description_id: 'i
     """
 
 
-def get_pond_contours_for_wading_depth(pond_id: 'int', min_depth: 'float', max_depth: 'float', routing_surface: '_pathing.SurfaceIdentifier') -> 'List[List[_math.Vector3]]':
+def get_pond_contours_for_wading_depth(pond_id: 'int', min_depth: 'float', max_depth: 'float', routing_surface: '_pathing.SurfaceIdentifier') -> '_geometry.CompoundPolygon':
     """
     Returns the pond geometry for a given depth
     """
@@ -352,7 +352,7 @@ def get_pool_edges(zone_id: 'int') -> 'Dict[Tuple[int, int], List[Tuple[_math.Ve
     """
 
 
-def get_pool_polys(pool_block_id: 'int', zone_id: 'int', level: 'int') -> 'Optional[List[List[_math.Vector3]]]':
+def get_pool_polys(pool_block_id: 'int', zone_id: 'int', level: 'int') -> 'Optional[_geometry.CompoundPolygon]':
     """
     Returns a vector of vectors of points represent. The first vector represents the body of the pool and subsequent vectors represent the holes of the pool. (pool_block_id, zone_id, level) -> [[Vector3]] | None
     """

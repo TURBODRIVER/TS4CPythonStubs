@@ -2371,7 +2371,7 @@ class ScoringFunctionRadial():
         """
 
 
-def add_placement_footprint(object_id: 'int', zone_id: 'int', footprint: 'Union[int, _geometry.Polygon]', position: '_math.Vector3', orientation: '_math.Quaternion', scale: 'float' = 1.0):
+def add_placement_footprint(object_id: 'int', zone_id: 'int', footprint: '_geometry.CompoundPolygon', position: '_math.Vector3', orientation: '_math.Quaternion', scale: 'float' = 1.0):
     pass
 
 
@@ -2381,7 +2381,7 @@ def generate_routing_goals_for_polygon(routing_location: '_math.Location', polyg
     """
 
 
-def get_accurate_placement_footprint_polygon(definition_id: 'int') -> '_geometry.Polygon':
+def get_accurate_placement_footprint_polygon(position: '_math.Vector3', orientation: '_math.Quaternion', scale: 'float', footprint: '_geometry.CompoundPolygon') -> '_geometry.Polygon':
     """
     Return the first valid/enabled placement footprint polygon in the footprint resource
     """
@@ -2399,7 +2399,7 @@ def get_object_surface_footprint_polygon(definition_id: 'int') -> '_geometry.Pol
     """
 
 
-def get_placement_footprint_bounds(footprint: 'Union[int, _geometry.Polygon]', scale: 'float' = 1.0) -> 'Tuple[_math.Vector3, _math.Vector3]':
+def get_placement_footprint_bounds(footprint: '_geometry.CompoundPolygon', scale: 'float' = 1.0) -> 'Tuple[_math.Vector3, _math.Vector3]':
     """
     Return the untransformed bounds of the Compound Polygon for the footprint.
     """
@@ -2419,7 +2419,7 @@ def get_placement_footprint_polygon(position: '_math.Vector3', orientation: '_ma
     """
 
 
-def get_routing_footprint_polygon(position: '_math.Vector3', orientation: '_math.Quaternion', routing_surface: 'Optional[_pathing.SurfaceIdentifier]' = None, footprint: 'Optional[Union[int, _geometry.Polygon]]' = None, scale: 'float' = 1.0) -> 'Optional[_geometry.Polygon]':
+def get_routing_footprint_polygon(position: '_math.Vector3', orientation: '_math.Quaternion', routing_surface: 'Optional[_pathing.SurfaceIdentifier]' = None, footprint: '_geometry.CompoundPolygon' = None, scale: 'float' = 1.0) -> 'Optional[_geometry.Polygon]':
     """
     Return the largest valid/enabled routing footprint polygon in the footprint resource
     """
@@ -2449,7 +2449,7 @@ def surface_supports_object_placement(routing_surface: '_pathing.SurfaceIdentifi
     """
 
 
-def test_footprint_intersection(circles: 'Sequence[Union[_geometry.Circle, Tuple[_math.Vector2, float]]]', footprint: 'Union[int, _geometry.Polygon]', position: 'Optional[_math.Vector3]' = None, orientation: 'Optional[_math.Quaternion]' = None, routing_surface: 'Optional[_pathing.SurfaceIdentifier]' = None) -> 'bool':
+def test_footprint_intersection(circles: 'Sequence[Union[_geometry.Circle, Tuple[_math.Vector2, float]]]', footprint: '_geometry.CompoundPolygon', position: 'Optional[_math.Vector3]' = None, orientation: 'Optional[_math.Quaternion]' = None, routing_surface: 'Optional[_pathing.SurfaceIdentifier]' = None) -> 'bool':
     """
     Test whether a collection of circles intersects with a specified footprint.
     """

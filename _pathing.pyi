@@ -1319,7 +1319,7 @@ class connectivity_handle():
     Represents a handle into the connectivity graph, via a point
     """
 
-    def __init__(self, polygon: 'Optional[_geometry.Polygon]' = None, routing_surface: 'Optional[SurfaceIdentifier]' = None):
+    def __init__(self, location: 'Union[_geometry.Polygon, Location]', routing_surface: 'Optional[SurfaceIdentifier]' = None):
         """
         Represents a handle into the connectivity graph, via a point
         """
